@@ -1,0 +1,133 @@
+.imagen {
+    width: 439px;
+    height: 348px;
+    object-fit: cover;
+}
+
+.top {
+    margin-top: 110px;
+}
+
+.link {
+    color: #82ba3d;
+}
+
+.navbar {
+    background: rgb(255, 255, 255);
+}
+
+.pos-l {
+    margin-left: 150px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.cbox {
+    width: 190px;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+.marco {
+    padding: 5px;
+    width: 70%;
+    margin: auto;
+    border: #000000 1px solid;
+    border-radius: 10px;
+}
+
+.bg-claro {
+    background-color: #f7f7f7;
+}
+
+.m-padre {
+    margin-top: 93px !important;
+}
+
+.m-maternas {
+    margin-top: 162px !important;
+
+}
+
+.m-madre {
+    margin-top: 215px !important;
+}
+
+.quit {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.bisa-mat {
+    margin-top: 130px !important;
+}
+
+@media all and (max-width: 1100px) {
+
+    .abuelos-top {
+        margin-top: 82px !important;
+    }
+
+    .m-padre {
+        width: 18rem !important;
+    }
+
+    .imagen {
+        width: 350px;
+        height: 316px;
+        object-fit: cover;
+    }
+
+    .abuelos {
+        width: 94%;
+        height: 10rem !important;
+    }
+
+    .abuelos-img {
+        width: 150px !important;
+        height: 90%;
+    }
+
+    .m-maternas {
+        margin-top: 197px !important;
+
+    }
+
+    .bisa {
+        width: 80% !important;
+
+
+    }
+
+    .bisa-mat {
+        margin-top: 52px !important;
+    }
+
+    .bisa-img {
+        width: 80%;
+        /* height: 80px; */
+        margin: 18% !important;
+        object-fit: cover;
+    }
+
+    .navbar-toggler {
+        font-size: 2.25rem !important;
+    }
+
+    .nav-link {
+        font-size: 300% !important;
+    }
+}

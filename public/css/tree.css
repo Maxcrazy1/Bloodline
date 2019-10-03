@@ -1,0 +1,199 @@
+.bg-marca {
+    background: url("laravel/public/marca-de-agua.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.imagen {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.link {
+    color: #82ba3d;
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.card {
+    border: none;
+}
+
+.col2>.card2>.card-img {
+    width: 320px !important;
+    height: 215px !important;
+    object-fit: cover;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+
+}
+
+.col4>.card2>.card-img2 {
+    width: 262px !important;
+    height: 192px !important;
+    object-fit: cover;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+
+}
+
+.col4>.card-der {
+    margin-left: 15px;
+}
+
+.col4>.card-izq {
+    margin-right: 15px;
+}
+
+.col8>.card-der {
+    margin-left: 5px;
+}
+
+.col8>.card-izq {
+    margin-right: 5px;
+}
+
+.col8>.card2>.card-img2 {
+    width: 145px !important;
+    height: 112px !important;
+    object-fit: cover;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.col16>.mini-card>.card-img2 {
+    width: 73px !important;
+    height: 60px !important;
+    object-fit: cover;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.card-img2 {
+    width: 90%;
+}
+
+.quit {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.card2 {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.col4>.card2 {
+    width: 18rem !important;
+}
+
+.container-fluid {
+    width: 97% !important;
+}
+
+.col2 {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.col4 {
+    float: left;
+    width: 25%;
+    padding: 10px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.col8 {
+    float: left;
+    width: 12.5%;
+    padding: 10px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.col16 {
+    float: left;
+    width: 6.25%;
+    padding: 10px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+
+}
+
+
+
+footer {
+    margin-top: 200px;
+}
+
+@media all and (max-width: 1100px) {
+    .card2 {
+        width: 18rem !important;
+    }
+
+    .card-img {
+        width: 268px;
+        height: 217px;
+    }
+
+    .col8>.card2>.card-img2 {
+        width: 105px !important;
+        height: 85px !important;
+    }
+
+    .col4>.card2>.card-img2 {
+        width: 198px !important;
+        height: 155px !important;
+
+    }
+
+    .col16>.mini-card>.card-img2 {
+        width: 54px !important;
+        height: 45px !important;
+
+    }
+
+    .col4>.card2 {
+        width: 14rem !important;
+    }
+
+    .col8>.card2 {
+        width: 7rem !important;
+    }
+
+    .mini-card {
+        width: 0rem !important;
+    }
+}
+

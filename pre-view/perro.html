@@ -1,241 +1,560 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <!-- Compiled and minified Bootstrap CSS -->
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-            crossorigin="anonymous"
-        />
-        <!-- Minified JS library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- Compiled and minified Bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <title>Document</title>
-        <style>
-           
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+    <!-- <meta name="viewport" content="initial-scale=0.1" /> -->
+    <!-- Compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <!-- Minified JS library -->
+    <!-- Compiled and minified Bootstrap JavaScript -->
+    <title>Document</title>
+    <style>
+        .imagen {
+            width: 439px;
+            height: 348px;
+            object-fit: cover;
+        }
+
+        .top {
+            margin-top: 110px;
+        }
+
+        .link {
+            color: #82ba3d;
+        }
+
+        .navbar {
+            background: rgb(255, 255, 255);
+        }
+
+        .pos-l {
+            margin-left: 150px;
+        }
+
+        .inline {
+            display: inline-block;
+        }
+
+        .cbox {
+            width: 190px;
+        }
+
+        .column {
+            float: left;
+            width: 33.33%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+
+        .marco {
+            padding: 5px;
+            width: 70%;
+            margin: auto;
+            border: #000000 1px solid;
+            border-radius: 10px;
+        }
+
+        .bg-claro {
+            background-color: #f7f7f7;
+        }
+
+        .m-padre {
+            margin-top: 93px !important;
+        }
+
+        .m-maternas {
+            margin-top: 162px !important;
+
+        }
+
+        .m-madre {
+            margin-top: 215px !important;
+        }
+
+        .quit {
+            text-align: center;
+            margin-bottom: 0px;
+        }
+
+        .bisa-mat {
+            margin-top: 130px !important;
+        }
+
+        @media all and (max-width: 1100px) {
+
+            .abuelos-top {
+                margin-top: 82px !important;
+            }
+
+            .m-padre {
+                width: 18rem !important;
+            }
+
             .imagen {
-                width: 100%;
-                height: 400px;
+                width: 350px;
+                height: 316px;
                 object-fit: cover;
             }
 
-            .link {
-                color: #82ba3d;
-            }
-            .navbar {
-                background: rgba(255, 255, 255, 0.4);
-            }
-            .up {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                -webkit-transform: translate(-50%, -50%);
+            .abuelos {
+                width: 94%;
+                height: 10rem !important;
             }
 
-            .table-fixed tbody {
-                height: 250px;
-                overflow-y: auto;
-                width: 100%;
+            .abuelos-img {
+                width: 150px !important;
+                height: 90%;
             }
 
-            .table-fixed thead,
-            .table-fixed tbody,
-            .table-fixed tr,
-            .table-fixed td,
-            .table-fixed th {
-                display: block;
+            .m-maternas {
+                margin-top: 197px !important;
+
             }
 
-            .table-fixed tbody td,
-            .table-fixed tbody th,
-            .table-fixed thead > tr > th {
-                float: left;
-                position: relative;
+            .bisa {
+                width: 80% !important;
+
+
             }
 
-            footer {
-                margin-top: 560px;
+            .bisa-mat {
+                margin-top: 52px !important;
             }
-            @media screen and (max-width: 640px) {
-                .up {
-                    width: 90%;
-                    top: 60%;
-                }
-            }
-        </style>
-    </head>
 
-    <body>
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="/public/Logo.png" width="50" height="60" alt="" />
-                </a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#"
-                                >Inicio
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">American Bully</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Bulldog Francés</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Bulldog Inglés</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Web principal</a>
-                        </li>
-                    </ul>
-                </div>
+            .bisa-img {
+                width: 80%;
+                /* height: 80px; */
+                margin: 18% !important;
+                object-fit: cover;
+            }
+
+            .navbar-toggler {
+                font-size: 2.25rem !important;
+            }
+
+            .nav-link {
+                font-size: 300% !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/public/Logo.png" width="50" height="60" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Inicio
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">American Bully</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Bulldog Francés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Bulldog Inglés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Web principal</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-
-        <header>
-            <img class="imagen" src="/resources/img/perro.jpg" alt="" />
-        </header>
-        <div class=" container border text-center bg-light mt-5 up">
-            <h1 class="mt-3">Buscador de perros</h1>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Filtro 1</label>
-                        <select
-                            class="form-control"
-                            id="exampleFormControlSelect1"
-                        >
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Filtro 2</label>
-                        <select
-                            class="form-control"
-                            id="exampleFormControlSelect1"
-                        >
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="">Nombre del perro</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id=""
-                            aria-describedby="emailHelp"
-                            placeholder="Inserte el nombre del perro"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <section>
-                <button type="button" class="m-3 btn btn-dark btn-lg">
-                    Buscar perros
-                </button>
-            </section>
-            <section>
-                <button type="button" class="mt-2 mb-4 btn btn-dark btn-lg">
-                    Hablarlo
-                </button>
-            </section>
-
-            <table class="table table-fixed">
-                <thead>
-                    <th scope="col" class="col-3">Nombre</th>
-                    <th scope="col" class="col-3">Raza</th>
-                    <th scope="col" class="col-3">Color</th>
-                    <th scope="col" class="col-3">Handle</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-3">Max</th>
-                        <td class="col-3">Mark</td>
-                        <td class="col-3">Otto</td>
-                        <td class="col-3">@mdo</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+    </nav>
 
-        <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+    <div class="top">
+        <div class="container-fluid">
+
+            <div class="row bg-claro">
+                <div class=" column mt-2">
+                    <h5 class="text-center marco">
+                        Información del ejemplar
+                    </h5>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 1</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 2</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 3</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 4</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 5</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5 mb-4">
+                        <p class="d-inline">Dato 6</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <h5 class="text-center marco">Información criador</h5>
+                    <div class="ml-5 mt-3">
+                        <p class="d-inline">Dato 1</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 2</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 3</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 4</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Dato 5</p>
+                        <p class="d-inline pos-l">Texto 1</p>
+                    </div>
+                </div>
+
+                <div class="column text-center ">
+                    <h5>Nombre del perro</h5>
+                    <img src="https://source.unsplash.com/cljFTjl760Q/800x800" class="mx-auto d-block imagen"
+                        style="border-radius: 25px;" />
+                    <div class="inline m-3">
+                        <span>
+                            <img src="https://source.unsplash.com/y3N24uWlEuo/50x50"
+                                class="rounded-circle mx-auto" /></span>
+                        <span>
+                            <img src="https://source.unsplash.com/o1KOfZ_bEFA/50x50"
+                                class="rounded-circle mx-auto" /></span>
+                        <span>
+                            <img src="https://source.unsplash.com/PZgHV8kd3-k/50x50"
+                                class="rounded-circle mx-auto" /></span>
+                    </div>
+                </div>
+
+                <div class=" column mt-2">
+                    <div class="marco  mb-2">
+                        <h5 class="text-center">Genealogia</h5>
+                    </div>
+                    <div class="ml-5">
+                        <p class="d-inline">Padre registrado</p>
+                        <p class="d-inline ml-5">XXXXXXXXXXX</p>
+                    </div>
+
+                    <div class="ml-5">
+                        <p class="d-inline">Madre registrada</p>
+                        <p class="d-inline ml-5">XXXXXXXXXXX</p>
+                    </div>
+
+                    <div class="container mt-5">
+                        <div class="row ml-3">
+                            <div class="col">
+                                <label for="exampleFormControlSelect1">Hijos registrados</label>
+                            </div>
+                            <div class="col">
+                                <select class="cbox" id="exampleFormControlSelect1">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row ml-3">
+                            <div class="col">
+                                <label for="exampleFormControlSelect1">Hermanos registrados</label>
+                            </div>
+                            <div class="col">
+                                <select class="cbox" id="exampleFormControlSelect1">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="row mt-5 mb-5">
+                <div class="column">
+                    <h5 class="text-center">Padres (2da. Generación)</h5>
+
+                    <div class="card m-padre" style="width: 22rem; margin:auto;">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Padre</h5>
+                            <img src="https://source.unsplash.com/cljFTjl760Q/390x310" style="width:100%"
+                                class="card-img-top rounded" alt="...">
+
+                            <p class="quit">Dato 1</p>
+                            <p class="quit">Dato 1</p>
+                            <p class="quit">Dato 1</p>
+                        </div>
+                    </div>
+
+
+                    <div class="card m-madre m-padre" style="width: 22rem; margin:auto;">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Madre</h5>
+                            <img src="https://source.unsplash.com/cljFTjl760Q/390x310" class="card-img-top rounded"
+                                alt="...">
+
+                            <p class="quit">Dato 1</p>
+                            <p class="quit">Dato 1</p>
+                            <p class="quit">Dato 1</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column ">
+                    <h5 class="text-center">Abuelos (3ra. Generación)</h5>
+
+                    <div class="card mt-5 abuelos abuelos-top"
+                        style="width: 439 !important; height: 207px; margin:auto;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/261x207"
+                                        class="card-img-top rounded abuelos-img" alt="..." style="width:105%;">
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Abuelo Pat.</h5>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-5 abuelos" style="width: 439; height: 207px; margin:auto;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/261x207"
+                                        class="card-img-top rounded abuelos-img" alt="...">
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Abuelo Pat.</h5>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card m-maternas abuelos" style="width: 439; height: 207px; margin:auto;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/261x207"
+                                        class="card-img-top rounded abuelos-img" alt="...">
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Abuelo Pat.</h5>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-5 abuelos" style="width: 439; height: 207px; margin:auto;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/261x207"
+                                        class="card-img-top rounded abuelos-img" alt="...">
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Abuelo Pat.</h5>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="column">
+                    <h5 class="text-center">Bisabuelos (4ta. Generación)</h5>
+
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
+                                        style="width:80%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bisa bisa-mat" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
+                        <div class="card-body" style="padding:0px !important">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://source.unsplash.com/cljFTjl760Q/145x115"
+                                        class="card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;">
+
+                                </div>
+                                <div class="col text-center mt-2">
+                                    <p class="quit">Abuelo Pat.</p>
+                                    <p class="quit">dato 1</p>
+                                    <p class="quit">dato 2</p>
+                                    <p class="quit">dato 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <footer class="py-4 bg-dark text-white-50">
             <div class="container text-center">
                 <small
                     >&copy; 2019 DERECHOS RESERVADOS. REALIZADO POR
@@ -244,21 +563,16 @@
                     ></small
                 >
             </div>
-        </footer>
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+        </footer> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
+</body>
+
 </html>
