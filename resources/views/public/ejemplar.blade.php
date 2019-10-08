@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Page Title')
+@section('title', 'Ejemplar')
 
 @push('styles')
     <link href="{{ asset('css/ejemplar.css') }}" rel="stylesheet">
@@ -64,7 +64,7 @@
             </div>
 
             <div class="column text-center ">
-                <h5>Nombre del perro</h5>
+                <h5>{{ejemplar->name}}</h5>
                 <img src="https://source.unsplash.com/cljFTjl760Q/800x800" class="mx-auto d-block imagen"
                     style="border-radius: 25px;" />
                 <div class="inline m-3">
@@ -135,7 +135,7 @@
                 <div class="card m-padre" style="width: 22rem; margin:auto;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Padre</h5>
-                        <img src="https://source.unsplash.com/cljFTjl760Q/390x310" style="width:100%"
+                        <img src="https://source.unsplash.com/cljFTjl760Q/390x310" style=""
                             class="card-img-top rounded" alt="...">
 
                         <p class="quit">Dato 1</p>
@@ -167,7 +167,7 @@
                         <div class="row">
                             <div class="col">
                                 <img src="https://source.unsplash.com/cljFTjl760Q/261x207"
-                                    class="card-img-top rounded abuelos-img" alt="..." style="width:105%;">
+                                    class="card-img-top rounded abuelos-img" alt="...">
                             </div>
                             <div class="col text-center">
                                 <h5>Abuelo Pat.</h5>

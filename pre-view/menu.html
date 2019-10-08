@@ -1,0 +1,273 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+        integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <title>Menú Desplegable Responsive</title>
+    <style>
+          header {
+            height: 64px;
+            background: rgb(255, 255, 255);
+            color: #FFF;
+            display: flex;
+            justify-content: flex-end;
+            margin-top:-20px;
+        }
+
+        #btn-menu {
+            display: none;
+        }
+
+        header label {
+            font-size: 30px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .active {
+            background-color: #82ba3d;
+            color: #FFF !important;
+        }
+
+        .main-menu ul {
+            background: rgb(255, 255, 255);
+            display: flex;
+            list-style: none;
+            padding: 20px;
+        }
+
+        .main-menu ul ul {
+            display: none;
+        }
+
+        .main-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: #3C3F4D;
+            text-decoration: none;
+            line-height: 35px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 100;
+        }
+
+        .main-menu a:hover {
+            background: #ABD17D;
+        }
+
+        .main-menu a i {
+            margin-left: 10px;
+        }
+
+        .main-menu ul li:hover ul {
+            transition: all 0.3s ease;
+            display: block;
+            position: absolute;
+            z-index: 1;
+        }
+
+        body {
+            width: 100% !important;
+            background-color: #343A40;
+        }
+
+
+
+        .carousel-item {
+            height: 85.4vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+        }
+
+        .link {
+            color: rgb(200, 204, 196);
+        }
+
+        .carousel-indicators {
+            z-index: 3 !important;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item {
+                height: 80.4vh;
+
+            }
+
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+
+            }
+
+            header label {
+                display: block;
+                padding-top: 16px;
+                padding-right: 16px;
+                transition: all 0.4s ease;
+            }
+
+            .main-menu {
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: translateX(5%);
+                transition: all 0.3s;
+                z-index: 5;
+
+            }
+
+            .active {
+                background-color: rgb(255, 255, 255);
+            }
+
+            .main-menu ul {
+                padding: 0px;
+                text-align: left;
+                flex-direction: column;
+                display: block;
+                height: 100%;
+                background-color: #ffffff;
+            }
+
+            .main-menu ul li:hover ul {
+                display: none;
+                position: static;
+            }
+
+            .main-menu a i {
+                position: absolute;
+                right: 16px;
+                line-height: 32px;
+            }
+
+            #btn-menu:checked~.main-menu {
+                transform: translateX(+100%);
+                height: 0;
+                overflow: hidden;
+                transition: all 0.3s;
+
+            }
+
+        }
+
+    </style>
+    <script>
+        $(".submenu").click(function () {
+            $(this).children("ul").slideToggle();
+        })
+
+        $("ul").click(function (ev) {
+            ev.stopPropagation();
+        })
+
+    </script>
+</head>
+
+<body scroll=no>
+    <header>
+        <input type="checkbox" id="btn-menu" />
+        <label for="btn-menu"><i class="fa fa-bars" style="color: #B7B9C4"></i></label>
+        <nav class="main-menu">
+            <ul>
+                <li> <a href="#"> Inicio</a></li>
+                <li class="submenu active"><a href="#">American Bully</i></a>
+
+                </li>
+                <li class="submenu"><a href="#">Bulldog Francés</a>
+
+                </li>
+                <li><a href="#">Bulldog Inglés</a></li>
+                <li><a href="#">Web principal</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div id="header">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active"
+                    style="background-image: url('https://source.unsplash.com/3NJ_LjXXqsM/1920x1080')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4">Bully bravo</h2>
+                        <p class="lead">
+                            Lorem, ipsum dolor.
+                        </p>
+
+                    </div>
+
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item"
+                    style="background-image: url('https://source.unsplash.com/JSfsK9VH4q8/1920x1080')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4">Bully bravo</h2>
+                        <p class="lead">
+                            Lorem, ipsum dolor.
+                        </p>
+                    </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item"
+                    style="background-image: url('https://source.unsplash.com/E9VhlOb9gmk/1920x1080')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4">Bully bravo</h2>
+                        <p class="lead">
+                            Lorem, ipsum dolor.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    </div>
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+            <small>&copy; 2019 DERECHOS RESERVADOS. REALIZADO POR <a class="link"
+                    href="https://club.colorfussionkc.com/">COLOR FUSSION</a></small>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

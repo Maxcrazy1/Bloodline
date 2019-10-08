@@ -54,6 +54,7 @@
 }
 
 .m-padre {
+    width: 21rem;
     margin-top: 93px !important;
 }
 
@@ -65,10 +66,15 @@
 .m-madre {
     margin-top: 215px !important;
 }
-
+.card{
+    border:0;
+}
 .quit {
     text-align: center;
     margin-bottom: 0px;
+}
+.abuelos-img{
+    width: 120%;
 }
 
 .bisa-mat {

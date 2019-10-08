@@ -11,15 +11,18 @@
 |
 */
 
+
 Route::get('/', function () {
-    return view('home');
+    return view('public.home');
 });
 Route::get('/buscador', function () {
-    return view('search');
+    return view('public.search');
 });
 Route::get('/cruza', function () {
-    return view('arbol');
+    return view('public.arbol');
 });
+Route::get('/ejemplar/{id}','EjemplarController@show');
+
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
@@ -29,7 +32,7 @@ Route::get('/ejemplares', function () {
 Route::get('/paginas', function () {
     return view('admin.pages');
 });
-Route::get('/ejemplar/{name}', function () {
+Route::get('/ejemplar/{name}/edit', function () {
     return view('admin.ejemplar');
 });
 Route::get('/pagina/{name}', function () {
@@ -37,7 +40,7 @@ Route::get('/pagina/{name}', function () {
 });
 
 
-// Route::get('prueba/{name}','pruebaController@prueba');
+Route::resource('Example','EjemplarController');
 
 // Route::get('/', function () {
 

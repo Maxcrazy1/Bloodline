@@ -20,6 +20,51 @@
           background-color: #343a40;
       }
      
+      #btn-menu {
+            display: none;
+        }
+
+        header label {
+            font-size: 30px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .main-menu ul {
+            background: rgb(255, 255, 255);
+            display: flex;
+            list-style: none;
+        }
+
+        .main-menu ul ul {
+            display: none;
+        }
+
+        .main-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: #3C3F4D;
+            text-decoration: none;
+            line-height: 35px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 100;
+        }
+
+        .main-menu a:hover {
+            background: #F0F0F6;
+        }
+
+        .main-menu a i {
+            margin-left: 10px;
+        }
+
+        .main-menu ul li:hover ul {
+            transition: all 0.3s ease;
+            display: block;
+            position: absolute;
+            z-index: 1;
+        }
+
             .carousel-item {
                 height: 90.4vh;
                 min-height: 350px;
