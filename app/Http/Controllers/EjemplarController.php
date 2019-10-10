@@ -6,7 +6,9 @@ use App\breeder;
 use App\Ejemplar;
 use App\Media;
 use App\Owner;
+use DB;
 use Illuminate\Http\Request;
+use Image;
 
 class EjemplarController extends Controller
 {
@@ -49,7 +51,6 @@ class EjemplarController extends Controller
         $ejemplar->location = $request->input('location');
         $ejemplar->birth_location = $request->input('birthLocation');
 
-
         if (empty($request->input('firstName'))) {
         } else {
             $proper = new Owner();
@@ -75,14 +76,30 @@ class EjemplarController extends Controller
             foreach ($file as $key) {
                 $media = new Media();
 
-                $nameFile = $request->input('name') . ' ' . time() . $key->getClientOriginalName();
+                $nameFile = $request->input('name') . '_' . time() . $key->getClientOriginalName();
                 $key->move(public_path() . '/images/.', $nameFile);
+                $destino = public_path('images/thumbs/') . $nameFile;
+
+                // $img = Image::make(public_path('images/') . $nameFile)
+                //     ->resize(200, 200)
+                //     ->save($destino);
+
+                $ffmpeg = 'C:/FFMpeg/bin/ffmpeg.exe';
+                $video = public_path('images/') . $nameFile;
+                $image = public_path('images/thumbs/') . $request->input('name') . '_' . time() .'thumb.jpg';
+                $interval = 3;
+                $size = '200x200';
+                $cmd = "$ffmpeg -i $video -deinterlace -an -ss $interval -f mjpeg -t 1 -r 1 -y -s $size $image 2>&1";
+                $resultado = exec($cmd);
+
+                // $return = `$cmd`;
+                
                 $media->src = $nameFile;
                 $media->ejemplar_id = $id;
                 $media->save();
+
             }
         }
-
 
     }
 
@@ -95,7 +112,9 @@ class EjemplarController extends Controller
     public function show($id)
     {
         $ejemplar = Ejemplar::find($id);
-      return view ('public.ejemplar',compact('ejemplar'));
+        $breeder = breeder::find($ejemplar->seeder_id);
+        $media = DB::table('media')->where("ejemplar_id", $id)->pluck('src');
+        return view('public.ejemplar', compact('ejemplar', 'breeder', 'media'));
     }
 
     /**
