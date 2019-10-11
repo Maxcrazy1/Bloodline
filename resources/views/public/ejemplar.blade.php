@@ -69,16 +69,29 @@
                 <video id="video-portada" class="embed-responsive-item imagen"
                     src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen controls
                     style="display:none;"></video>
-                <img id="img-portada" src="{{URL::asset('/images/'.$media[0])}}" class="mx-auto d-block imagen"
+                <img id="img-portada" src="{{URL::asset('/media/'.$media[0])}}" class="mx-auto d-block imagen"
                     style="border-radius: 25px;" />
                 {{-- </div> --}}
 
                 <div class="inline m-3">
                     @foreach ($media as $src)
+                    @php
+                        $files = ['mp4', 'avi', 'mkv', 'flv', 'mov', 'wmv'];
+                        $temp=explode('.',$src);
+                        $largo=count($temp);
+                        $extension=$temp[$largo-1];
+                    @endphp
+                    @if (in_array($extension, $files))
                     <span>
-                        <img src="{{URL::asset('/images/'.$src)}}" class="rounded-circle mx-auto thumbnail"
+                        <img src="{{URL::asset('/media/thumbs/'.$src.'.jpg')}}" class="rounded-circle mx-auto thumbnail"
                             id="{{$src}}" onclick="changeImg('{{$src}}')" />
                     </span>
+                    @else
+                    <span>
+                            <img src="{{URL::asset('/media/thumbs/'.$src)}}" class="rounded-circle mx-auto thumbnail"
+                                id="{{$src}}" onclick="changeImg('{{$src}}')" />
+                        </span>
+                    @endif
                     @endforeach
                 </div>
             </div>
@@ -88,12 +101,12 @@
                 </div>
                 <div class="ml-5">
                     <p class="d-inline">Padre registrado</p>
-                    <p class="d-inline ml-5">XXXXXXXXXXX</p>
+                    <p class="d-inline ml-5">{{$hijos[1]->name}}</p>  
                 </div>
 
                 <div class="ml-5">
                     <p class="d-inline">Madre registrada</p>
-                    <p class="d-inline ml-5">XXXXXXXXXXX</p>
+                    <p class="d-inline ml-5">{{$hijos[0]->name}}</p>
                 </div>
 
                 <div class="container mt-5">
@@ -390,28 +403,28 @@
         if ( files.includes(temp)) {
             changeClass('#video-portada','style','display:block !important;');
             changeClass('#img-portada','style','display:none !important;');
-        $('#video-portada').prop('src',url+'/images/'+src);
+        $('#video-portada').prop('src',url+'/media/'+src);
 
         }else{
             changeClass('#img-portada','style','display:block !important;');  
             changeClass('#video-portada','style','display:none !important;');
-        $('#img-portada').prop('src',url+'/images/'+src);
+        $('#img-portada').prop('src',url+'/media/'+src);
 
         }
 
       
             
-}
+    }
 
-function changeClass(id,prop,edit){
-    $(id).prop(prop,edit+'border-radius:25px;')
-}
-function cutString(cortador,str,i) {
-    
-    let foo = str.split(cortador) 
-    let url=foo[i];
-    return url;
-}
+        function changeClass(id,prop,edit){
+            $(id).prop(prop,edit+'border-radius:25px;')
+        }
+        function cutString(cortador,str,i) {
+            
+            let foo = str.split(cortador) 
+            let url=foo[i];
+            return url;
+        }
 </script>
 
 @endsection

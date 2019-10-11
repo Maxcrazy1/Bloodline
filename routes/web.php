@@ -12,6 +12,9 @@
 */
 
 
+Route::get('/ejemplars/{genre}','EjemplarController@index');
+
+
 Route::get('/', function () {
     return view('public.home');
 });

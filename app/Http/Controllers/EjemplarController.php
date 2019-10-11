@@ -6,6 +6,7 @@ use App\breeder;
 use App\Ejemplar;
 use App\Media;
 use App\Owner;
+use App\relation;
 use DB;
 use Illuminate\Http\Request;
 use Image;
@@ -17,10 +18,13 @@ class EjemplarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($genre)
     {
-        //
-        return 'hello';
+        $ejemplars = DB::table('ejemplars')
+            ->select('id', 'name', 'birthday', 'color', 'genre')
+            ->where('genre', $genre)
+            ->get();
+        return $ejemplars;
     }
 
     /**
@@ -66,41 +70,63 @@ class EjemplarController extends Controller
             $breeder->last_name = $request->input('LastNameSeeder');
             $breeder->web_Page = $request->input('webpage');
             $breeder->save();
-            $ejemplar->seeder_id = $breeder->id;
+
         }
+
+        $breeder = breeder::all();
+        $owner = Owner::all();
+        $id = Ejemplar::all();
+
+        $ejemplar->owner()->associate($owner->last());
+        $ejemplar->breeder()->associate($breeder->last());
         $ejemplar->save();
-        $id = $ejemplar->id;
 
         if ($request->hasFile('src')) {
             $file = $request->file('src');
             foreach ($file as $key) {
-                $media = new Media();
-
                 $nameFile = $request->input('name') . '_' . time() . $key->getClientOriginalName();
-                $key->move(public_path() . '/images/.', $nameFile);
-                $destino = public_path('images/thumbs/') . $nameFile;
+                $extension = pathinfo($nameFile, PATHINFO_EXTENSION);
+                $media = new Media();
+                $files = ['mp4', 'avi', 'mkv', 'flv', 'mov', 'wmv'];
 
-                // $img = Image::make(public_path('images/') . $nameFile)
-                //     ->resize(200, 200)
-                //     ->save($destino);
+                $key->move(public_path() . '/media/.', $nameFile);
 
-                $ffmpeg = 'C:/FFMpeg/bin/ffmpeg.exe';
-                $video = public_path('images/') . $nameFile;
-                $image = public_path('images/thumbs/') . $request->input('name') . '_' . time() .'thumb.jpg';
-                $interval = 3;
-                $size = '200x200';
-                $cmd = "$ffmpeg -i $video -deinterlace -an -ss $interval -f mjpeg -t 1 -r 1 -y -s $size $image 2>&1";
-                $resultado = exec($cmd);
+                if (in_array($extension, $files)) {
+                    $ffmpeg = 'C:/FFMpeg/bin/ffmpeg.exe';
+                    $video = public_path('media/') . $nameFile;
+                    $image = public_path('media/thumbs/') . $request->input('name') . '_' . time() . $key->getClientOriginalName() . '.jpg';
+                    $interval = 3;
+                    $size = '200x200';
+                    $cmd = "$ffmpeg -i $video -deinterlace -an -ss $interval -f mjpeg -t 1 -r 1 -y -s $size $image 2>&1";
+                    $resultado = exec($cmd);
 
-                // $return = `$cmd`;
-                
+                } else {
+                    $destino = public_path('media/thumbs/') . $nameFile;
+                    $img = Image::make(public_path('media/') . $nameFile)
+                        ->resize(200, 200)
+                        ->save($destino);
+
+                }
+
                 $media->src = $nameFile;
-                $media->ejemplar_id = $id;
+                $media->ejemplar()->associate($id->last());
                 $media->save();
 
             }
         }
 
+        $relationP = new relation();
+        $request->input('LastNameSeeder');
+        $relationP->id_relation = 1;
+        $relationP->padre_id = $request->input('id_macho');
+        $relationP->hijo()->associate($id->last());
+        $relationP->save();
+
+        $relationM = new relation();
+        $relationM->id_relation = 2;
+        $relationM->padre_id = $request->input('id_hembra');
+        $relationM->hijo()->associate($id->last());
+        $relationM->save();
     }
 
     /**
@@ -112,9 +138,20 @@ class EjemplarController extends Controller
     public function show($id)
     {
         $ejemplar = Ejemplar::find($id);
-        $breeder = breeder::find($ejemplar->seeder_id);
+        $breeder = breeder::find($ejemplar->breeder_id);
         $media = DB::table('media')->where("ejemplar_id", $id)->pluck('src');
-        return view('public.ejemplar', compact('ejemplar', 'breeder', 'media'));
+
+        $padres = DB::table('ejemplars')
+            ->select('relations.padre_id')
+            ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
+            ->where('ejemplars.id', 75);
+
+        $hijos = DB::table('ejemplars')
+        ->joinSub($padres, 'padres', function ($join) {
+        $join->on('padres.padre_id', '=', 'ejemplars.id');
+         })->get();
+
+        return view('public.ejemplar', compact('ejemplar', 'breeder', 'media','hijos'));
     }
 
     /**
