@@ -137,23 +137,120 @@ class EjemplarController extends Controller
      */
     public function show($id)
     {
-        $ejemplar = Ejemplar::find($id);
-        $breeder = breeder::find($ejemplar->breeder_id);
-        $media = DB::table('media')->where("ejemplar_id", $id)->pluck('src');
+        $abuelos = [];
+        $abuel = [];
 
-        $padres = DB::table('ejemplars')
-            ->select('relations.padre_id')
-            ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
-            ->where('ejemplars.id', 75);
+        $ejemplar = $this->getDetails($id);
+        $brothers = $this->getBrothers($id);
+        $hijos = $this->getChildrens($id);
 
-        $hijos = DB::table('ejemplars')
-        ->joinSub($padres, 'padres', function ($join) {
-        $join->on('padres.padre_id', '=', 'ejemplars.id');
-         })->get();
+        $temp = [];
+        $temp2 = [];
 
-        return view('public.ejemplar', compact('ejemplar', 'breeder', 'media','hijos'));
+        $segundaG = $this->getParents($id);
+        $segundaG = [
+            "Segunda generacion" => $segundaG,
+        ];
+        array_push($abuelos, $segundaG);
+        for ($i = 0; $i < 2; $i++) {
+            $terceraG = $this->getParents($segundaG['Segunda generacion'][$i]->padre_id);
+
+            for ($j = 0; $j < 2; $j++) {
+                $cuartaG = $this->getParents($terceraG[$j]->padre_id);
+    
+                foreach ($cuartaG as $key => $value) {
+                    array_push($temp2, $value);
+                }
+            }
+
+            foreach ($terceraG as $key => $value) {
+                array_push($temp, $value);
+            }
+        }
+       
+        $thirdG = [
+            "Tercera generacion" => $temp,
+        ];
+        
+        array_push($abuelos, $thirdG);
+
+        $fourG = [
+            "Cuarta generacion" => $temp2,
+        ];
+        
+        array_push($abuelos, $fourG);
+        
+
+        return $abuelos;
+    }
+    // return view('public.ejemplar', compact('ejemplar', 'breeder', 'media','hijos'));
+
+    public function getDetails($id)
+    {
+        $ejemplar = DB::table('ejemplars')
+            ->leftJoin('media', 'ejemplars.id', '=', 'media.ejemplar_id')
+            ->leftJoin('owners', 'owners.id', '=', 'ejemplars.owner_id')
+            ->leftJoin('breeders', 'breeders.id', '=', 'ejemplars.breeder_id')
+            ->where('ejemplars.id', '=', $id)
+            ->get();
+
+        return $ejemplar;
     }
 
+    public function getParents($id)
+    {
+        $hijos = DB::table('ejemplars')
+            ->select('relations.padre_id')
+            ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
+            ->where('relations.hijo_id', $id);
+
+        $padres = DB::table('ejemplars')
+            ->joinSub($hijos, 'padres', function ($join) {
+                $join->on('padres.padre_id', '=', 'ejemplars.id');
+            })
+            ->leftJoin('media', 'media.ejemplar_id', '=', 'ejemplars.id')
+            ->groupBy('ejemplars.id')
+            ->get();
+
+        return $padres;
+    }
+
+    public function getChildrens($id)
+    {
+
+        $childs = DB::table('ejemplars')
+            ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
+            ->where('relations.padre_id', '=', $id)
+            ->get();
+
+        return $childs;
+    }
+
+    public function getBrothers($id)
+    {
+        $parents = DB::table('ejemplars')
+            ->select('padre_id')
+            ->join('relations', 'hijo_id', '=', 'ejemplars.id')
+            ->where('ejemplars.id', $id);
+
+        $childrens = DB::table('ejemplars')
+            ->joinSub($parents, 'padres', function ($join) {
+                $join->on('padres.padre_id', '=', 'ejemplars.id');
+            })
+
+            ->join('relations', 'relations.padre_id', '=', 'padres.padre_id')
+            ->select('hijo_id')
+            ->groupBy('hijo_id');
+
+        $brothers = DB::table('ejemplars')
+            ->joinSub($childrens, 'hermanos', function ($join) {
+                $join->on('hermanos.hijo_id', '=', 'ejemplars.id');
+            })
+            ->where('hermanos.hijo_id', '<>', $id)
+            ->get();
+
+        return $brothers;
+    }
     /**
      * Show the form for editing the specified resource.
      *

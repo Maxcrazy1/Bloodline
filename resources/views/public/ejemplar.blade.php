@@ -73,7 +73,7 @@
                     style="border-radius: 25px;" />
                 {{-- </div> --}}
 
-                <div class="inline m-3">
+                <div class="inline m-3"> 
                     @foreach ($media as $src)
                     @php
                         $files = ['mp4', 'avi', 'mkv', 'flv', 'mov', 'wmv'];
