@@ -5,27 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/css/fileinput.min.css" integrity="sha256-0jMzmu+xN8Lxr0wvRizwxIPe/KGY3E6kYYC4UoiYMGc=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.6/js/fileinput.js" integrity="sha256-gBMxvh5TatVGO6+k+QUIsmB2hoDh9C4QDmARBh1fLt8=" crossorigin="anonymous"></script>
+    <!-- <script src="js/plugins/sortable.js" type="text/javascript"></script>
+        <script src="js/plugins/piexif.js" type="text/javascript"></script>
+    <script src="js/locales/es.js" type="text/javascript"></script>
+    <script src="css/fas/theme.js" type="text/javascript"></script>
+    <script src="css/explorer-fas/theme.js" type="text/javascript"></script> -->
 </head>
-<style>
-.dropzone {
-    background: white;
-    border-radius: 5px;
-    border: 2px dashed rgb(0, 135, 247);
-    border-image: none;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
+
+
 <body>
-    <h3>Sube imagenes aquí</h3>
-    <form action="/file-upload"
-      class="dropzone"
-      id="my-awesome-dropzone">
-</form>
+    <div class="container my-4">
+   
+        <label for="input-25">Planets and Satellites</label>
+        <div class="file-loading">
+            <input id="input-25" name="input25[]" type="file" multiple>
+        </div>
+</div>
+</body>
+
 <script>
+     
+    $(document).ready(function() {
+        var url1 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
+            url2 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg';
+        $("#input-25").fileinput({
+            initialPreview: [url1, url2],
+            initialPreviewAsData: true,
+            initialPreviewConfig: [
+                {caption: "Moon.jpg", filename: "MoonFull.jpg", downloadUrl: url1, size: 930321, width: "120px", key: 1},
+                {caption: "Earth.jpg", filename: "EarthFull.jpg", downloadUrl: url2, size: 1218822, width: "120px", key: 2}
+            ],
+            deleteUrl: "/site/file-delete",
+            overwriteInitial: true,
+            maxFileSize: 100,
+            initialCaption: "The Moon and the Earth"
+        });
+    });
 
 </script>
 </body>

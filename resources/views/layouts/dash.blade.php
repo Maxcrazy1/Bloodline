@@ -14,14 +14,13 @@
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('icons/css/all.min.css') }}">
+    @yield('styles')
 
     <!-- CSS Files -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/light-bootstrap-dashboard.css') }}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/demo.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 </head>
 
 <body>
@@ -144,7 +143,9 @@
 
 </body>
 <!--   Core JS Files   -->
-<script src="{{ asset('js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script> --}}
+
+{{-- <script src="{{ asset('js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script> --}}
 <script src="{{ asset('js/core/popper.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/core/bootstrap.min.js') }}" type="text/javascript"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->

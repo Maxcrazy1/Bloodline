@@ -18,13 +18,14 @@ class EjemplarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($genre)
+    public function index(Ejemplar $ejemplar)
     {
-        $ejemplars = DB::table('ejemplars')
-            ->select('id', 'name', 'birthday', 'color', 'genre')
-            ->where('genre', $genre)
-            ->get();
-        return $ejemplars;
+        // $ejemplars = DB::table('ejemplars')
+        //     ->select('id', 'name', 'birthday', 'color', 'genre')
+        //     ->where('genre', $genre)
+        //     ->get();
+        // return $ejemplars;
+        return $ejemplar;
     }
 
     /**
@@ -139,25 +140,27 @@ class EjemplarController extends Controller
     {
         $abuelos = [];
         $abuel = [];
-
         $ejemplar = $this->getDetails($id);
         $brothers = $this->getBrothers($id);
         $hijos = $this->getChildrens($id);
+        $owner = Owner::find($ejemplar[0]->owner_id);
+        $breeder = breeder::find($ejemplar[0]->breeder_id);
+        $props = [
+            "Propietario" => $owner,
+            "Criador" => $breeder,
 
+        ];
         $temp = [];
         $temp2 = [];
 
         $segundaG = $this->getParents($id);
-        $segundaG = [
-            "Segunda generacion" => $segundaG,
-        ];
-        array_push($abuelos, $segundaG);
+
         for ($i = 0; $i < 2; $i++) {
-            $terceraG = $this->getParents($segundaG['Segunda generacion'][$i]->padre_id);
+            $terceraG = $this->getParents($segundaG[$i]->padre_id);
 
             for ($j = 0; $j < 2; $j++) {
                 $cuartaG = $this->getParents($terceraG[$j]->padre_id);
-    
+
                 foreach ($cuartaG as $key => $value) {
                     array_push($temp2, $value);
                 }
@@ -167,38 +170,44 @@ class EjemplarController extends Controller
                 array_push($temp, $value);
             }
         }
-       
-        $thirdG = [
-            "Tercera generacion" => $temp,
-        ];
-        
-        array_push($abuelos, $thirdG);
 
-        $fourG = [
+        $familia = [
+            "Segunda generacion" => $segundaG,
+            "Tercera generacion" => $temp,
             "Cuarta generacion" => $temp2,
         ];
-        
-        array_push($abuelos, $fourG);
-        
 
-        return $abuelos;
+        array_push($abuelos, $familia);
+
+        $details = [
+            "Detalles" => $ejemplar,
+            "Hermanos" => $brothers,
+            "Hijos" => $hijos,
+            "Dueños" => $props,
+        ];
+
+        // return $abuelos;
+        return view('public.ejemplar', compact('details', 'abuelos'));
+
     }
-    // return view('public.ejemplar', compact('ejemplar', 'breeder', 'media','hijos'));
 
     public function getDetails($id)
     {
         $ejemplar = DB::table('ejemplars')
-            ->leftJoin('media', 'ejemplars.id', '=', 'media.ejemplar_id')
-            ->leftJoin('owners', 'owners.id', '=', 'ejemplars.owner_id')
-            ->leftJoin('breeders', 'breeders.id', '=', 'ejemplars.breeder_id')
             ->where('ejemplars.id', '=', $id)
             ->get();
 
+        $media = DB::table('media')
+            ->where('media.ejemplar_id', $ejemplar[0]->id)
+            ->get();
+
+        $ejemplar[0]->medias = $media;
         return $ejemplar;
     }
 
     public function getParents($id)
     {
+        $medias = [];
         $hijos = DB::table('ejemplars')
             ->select('relations.padre_id')
             ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
@@ -208,9 +217,15 @@ class EjemplarController extends Controller
             ->joinSub($hijos, 'padres', function ($join) {
                 $join->on('padres.padre_id', '=', 'ejemplars.id');
             })
-            ->leftJoin('media', 'media.ejemplar_id', '=', 'ejemplars.id')
-            ->groupBy('ejemplars.id')
             ->get();
+
+        foreach ($padres as $key => $value) {
+            $media = DB::table('media')
+                ->where('media.ejemplar_id', $value->id)
+                ->get();
+
+            $padres[$key]->medias = $media;
+        }
 
         return $padres;
     }
@@ -251,6 +266,16 @@ class EjemplarController extends Controller
 
         return $brothers;
     }
+
+    public function getMedia($id)
+    {
+        $media = DB::table('media')
+            ->select('src')
+            ->where('ejemplar_id', $id)
+            ->get();
+        return $media;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -259,7 +284,10 @@ class EjemplarController extends Controller
      */
     public function edit($id)
     {
-        //
+        $details = $this->getDetails($id);
+        $padres = $this->getParents($id);
+
+        return view('admin.editar-ejemplar', compact('details', 'padres'));
     }
 
     /**
@@ -269,8 +297,9 @@ class EjemplarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ejemplar $ejemplar)
     {
+        return $request;
         //
     }
 

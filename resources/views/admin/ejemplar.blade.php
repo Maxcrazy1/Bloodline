@@ -1,6 +1,5 @@
 @extends('layouts.dash')
 @section('title', 'Ejemplar Atomos')
-@include('public.modal')
 @include('admin.scripts-drag')
 
 @section('content')
@@ -11,7 +10,7 @@
                 <h4 class="card-title">Añadir Nuevo ejemplar</h4>
             </div>
             <div class="card-body">
-                <form class="form-group" method="POST" action="/Example" enctype="multipart/form-data">
+                <form class="form-group" method="POST" action="{{$url}}" enctype="multipart/form-data">
                     @csrf
                     <div class=" row">
                         <div class="col-md-6">
@@ -136,7 +135,7 @@
                         <div class="col-md-12">
                             <label>Imagenes del ejemplar</label>
                             <input id="input-b3" name="src[]" type="file" class="file" multiple data-show-upload="false"
-                                data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                                data-show-caption="true" data-msg-placeholder="Select {files} for upload..." data-theme="fas">
                         </div>
                     </div>
 
@@ -193,7 +192,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="btn btn-info btn-fill pull-right" value="Guardar Ejemplar">
+                    <input type="submit" class="btn btn-info btn-fill pull-right" value="{{$textBtn}}">
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -202,3 +201,4 @@
 </div>
 <script type="text/javascript" src="{{ URL::asset('js/js_public/ejemplar.js') }}"></script>
 @endsection
+@include('public.modal')
