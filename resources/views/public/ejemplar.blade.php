@@ -65,44 +65,48 @@
 
             <div class="column text-center ">
                 <h5>{{$details['Detalles'][0]->name}}</h5>
-                {{-- <div class="embed-responsive embed-responsive-16by9"> --}}
-                <video id="video-portada" class="embed-responsive-item imagen"
-                    src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen controls
-                    style="display:none;"></video>
-                <img id="img-portada" src="{{URL::asset('/media/'.$details['Detalles'][0]->src)}}" class="mx-auto d-block imagen"
-                    style="border-radius: 25px;" />
-                {{-- </div> --}}
 
-                <div class="inline m-3"> 
-                    @for ($i = 0; $i < count($details['Detalles']); $i++)
-                        
-                    @php
+                <video id="video-portada" class="embed-responsive-item imagen"
+                    src="" allowfullscreen controls
+                    style="display:none;"></video>
+
+                <img id="img-portada" src="{{URL::asset('/media/'.$details['Detalles'][0]->medias[0]->src)}}"
+                    class="mx-auto d-block imagen" style="border-radius: 25px;" />
+
+                <div class="inline m-3">
+
+                    @for ($i = 0; $i < count($details['Detalles'][0]->medias); $i++)
+                        @php
                         $files = ['mp4', 'avi', 'mkv', 'flv', 'mov', 'wmv'];
-                        $temp=explode('.',$details['Detalles'][$i]->src);
+                        $temp=explode('.',$details['Detalles'][0]->medias[$i]->src);
                         $largo=count($temp);
                         $extension=$temp[$largo-1];
-                    @endphp
-                    @if (in_array($extension, $files))
-                    <span>
-                        <img src="{{URL::asset('/media/thumbs/'.$details['Detalles'][$i]->src.'.jpg')}}" class="rounded-circle mx-auto thumbnail"
-                            id="{{$details['Detalles'][$i]->src}}" onclick="changeImg('{{$details['Detalles'][$i]->src}}')" />
-                    </span>
-                    @else
-                    <span>
-                            <img src="{{URL::asset('/media/thumbs/'.$details['Detalles'][$i]->src)}}" class="rounded-circle mx-auto thumbnail"
-                                id="{{$details['Detalles'][$i]->src}}" onclick="changeImg('{{$details['Detalles'][$i]->src}}')" />
+                        @endphp
+                        @if (in_array($extension, $files))
+                        <span>
+                            <img src="{{URL::asset('/media/thumbs/'.$details['Detalles'][0]->medias[$i]->src.'.jpg')}}"
+                                class="rounded-circle mx-auto thumbnail" id=""
+                                onclick="changeImg('{{$details['Detalles'][0]->medias[$i]->src}}')" />
                         </span>
-                    @endif
-                    @endfor
+                        @else
+                        <span>
+                            <img src="{{URL::asset('/media/thumbs/'.$details['Detalles'][0]->medias[$i]->src)}}"
+                                class="rounded-circle mx-auto thumbnail" id=""
+                                onclick="changeImg('{{$details['Detalles'][0]->medias[$i]->src}}')" />
+                        </span>
+                        @endif
+                        @endfor
+
                 </div>
             </div>
+
             <div class=" column mt-2">
                 <div class="marco  mb-2">
                     <h5 class="text-center">Genealogia</h5>
                 </div>
                 <div class="ml-5">
                     <p class="d-inline">Padre registrado</p>
-                    <p class="d-inline ml-5">{{$abuelos[0]['Segunda generacion'][0]->name}}</p>  
+                    <p class="d-inline ml-5">{{$abuelos[0]['Segunda generacion'][0]->name}}</p>
                 </div>
 
                 <div class="ml-5">
@@ -117,9 +121,9 @@
                         </div>
                         <div class="col">
                             <select class="cbox" id="exampleFormControlSelect1">
-                                    @for ($i = 0; $i < count($details["Hijos"]); $i++)
-                                    <option>{{$details["Hijos"][$i]->name}} </option>
-                                        
+                                @for ($i = 0; $i < count($details["Hijos"]); $i++) <option>
+                                    {{$details["Hijos"][$i]->name}} </option>
+
                                     @endfor
                             </select>
                         </div>
@@ -130,10 +134,10 @@
                         </div>
                         <div class="col">
                             <select class="cbox" id="exampleFormControlSelect1">
-                                @for ($i = 0; $i < count($details["Hermanos"]); $i++)
-                                <option>{{$details["Hermanos"][$i]->name}} </option>
-                                    
-                                @endfor
+                                @for ($i = 0; $i < count($details["Hermanos"]); $i++) <option>
+                                    {{$details["Hermanos"][$i]->name}} </option>
+
+                                    @endfor
                             </select>
                         </div>
                     </div>
@@ -149,8 +153,8 @@
                 <div class="card m-padre" style="width: 22rem; margin:auto;">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{$abuelos[0]["Segunda generacion"][0]->name}}</h5>
-                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}" style="" class="card-img-top rounded"
-                            alt="...">
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}"
+                            style="" class="card-img-top rounded" alt="...">
 
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][0]->type_register}} </p>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][0]->color}}</p>
@@ -162,8 +166,8 @@
                 <div class="card m-madre m-padre" style="width: 22rem; margin:auto;">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{$abuelos[0]["Segunda generacion"][1]->name}}</h5>
-                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}" class="card-img-top rounded"
-                            alt="...">
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}"
+                            class="card-img-top rounded" alt="...">
 
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][1]->type_register}}</p>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][1]->color}}</p>
@@ -390,40 +394,5 @@
     </div>
 </div>
 
-<script>
-    function changeImg(src) {
-        let temp=cutString('.',src,1);
-    
-        let files = ['mp4','avi','mkv','flv','mov','wmv'];
-
-        let URLactual = window.location + '';
-        let url=cutString('/ejemplar',URLactual,0);
-
-        if ( files.includes(temp)) {
-            changeClass('#video-portada','style','display:block !important;');
-            changeClass('#img-portada','style','display:none !important;');
-        $('#video-portada').prop('src',url+'/media/'+src);
-
-        }else{
-            changeClass('#img-portada','style','display:block !important;');  
-            changeClass('#video-portada','style','display:none !important;');
-        $('#img-portada').prop('src',url+'/media/'+src);
-
-        }
-
-      
-            
-    }
-
-        function changeClass(id,prop,edit){
-            $(id).prop(prop,edit+'border-radius:25px;')
-        }
-        function cutString(cortador,str,i) {
-            
-            let foo = str.split(cortador) 
-            let url=foo[i];
-            return url;
-        }
-</script>
-
+<script type="text/javascript" src="{{ URL::asset('js/public/images.js') }}"></script>
 @endsection

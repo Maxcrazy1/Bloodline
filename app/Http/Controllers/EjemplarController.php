@@ -7,8 +7,9 @@ use App\Ejemplar;
 use App\Media;
 use App\Owner;
 use App\relation;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use DB;
 use Image;
 
 class EjemplarController extends Controller
@@ -20,12 +21,6 @@ class EjemplarController extends Controller
      */
     public function index(Ejemplar $ejemplar)
     {
-        // $ejemplars = DB::table('ejemplars')
-        //     ->select('id', 'name', 'birthday', 'color', 'genre')
-        //     ->where('genre', $genre)
-        //     ->get();
-        // return $ejemplars;
-        return $ejemplar;
     }
 
     /**
@@ -35,53 +30,35 @@ class EjemplarController extends Controller
      */
     public function create()
     {
-        //
+        $razas = DB::table('razas')
+            ->select('raza')
+            ->get();
+        return view('admin.ejemplar', compact('razas'));
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function saveRelations($request, $id)
     {
+        $condicion = [
+            $request->input('id_macho'),
+            $request->input('id_hembra')];
 
-        $ejemplar = new Ejemplar();
-        $ejemplar->name = $request->input('name');
-        $ejemplar->birthday = $request->input('date');
-        $ejemplar->color = $request->input('color');
-        $ejemplar->genre = $request->input('sex');
-        $ejemplar->type_register = $request->input('typeRegister');
-        $ejemplar->location = $request->input('location');
-        $ejemplar->birth_location = $request->input('birthLocation');
+        for ($i = 0; $i < 2; $i++) {
+            if ($condicion[0] != "" or $condicion[1] != "") {
+                $foo = $condicion != "" ? [1, 'id_macho'] : [2, 'id_hembra'];
+                $condicion[($foo[0] - 1)] = "";
 
-        if (empty($request->input('firstName'))) {
-        } else {
-            $proper = new Owner();
-            $proper->name = $request->input('firstName');
-            $proper->last_name = $request->input('lastName');
-            $proper->save();
+                $relation = new relation();
+                $relation->id_relation = $foo[0];
+                $relation->padre_id = $request->input($foo[1]);
+                $relation->hijo()->associate($id);
+                $relation->save();
+            }
         }
+    }
 
-        if (empty($request->input('firstNameSeeder'))) {
-        } else {
-            $breeder = new breeder();
-            $breeder->name = $request->input('firstNameSeeder');
-            $breeder->last_name = $request->input('LastNameSeeder');
-            $breeder->web_Page = $request->input('webpage');
-            $breeder->save();
-
-        }
-
-        $breeder = breeder::all();
-        $owner = Owner::all();
-        $id = Ejemplar::all();
-
-        $ejemplar->owner()->associate($owner->last());
-        $ejemplar->breeder()->associate($breeder->last());
-        $ejemplar->save();
-
+    public function saveMedia($request, $id)
+    {
         if ($request->hasFile('src')) {
             $file = $request->file('src');
             foreach ($file as $key) {
@@ -110,46 +87,89 @@ class EjemplarController extends Controller
                 }
 
                 $media->src = $nameFile;
-                $media->ejemplar()->associate($id->last());
+                $media->ejemplar()->associate($id);
                 $media->save();
 
             }
         }
-
-        $relationP = new relation();
-        $request->input('LastNameSeeder');
-        $relationP->id_relation = 1;
-        $relationP->padre_id = $request->input('id_macho');
-        $relationP->hijo()->associate($id->last());
-        $relationP->save();
-
-        $relationM = new relation();
-        $relationM->id_relation = 2;
-        $relationM->padre_id = $request->input('id_hembra');
-        $relationM->hijo()->associate($id->last());
-        $relationM->save();
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function store(Request $request)
+    {
+
+        $ejemplar = new Ejemplar();
+        $ejemplar->name = $request->input('name');
+        $ejemplar->birthday = $request->input('date');
+        $ejemplar->color = $request->input('color');
+        $ejemplar->genre = $request->input('sex');
+        $ejemplar->type_register = $request->input('typeRegister');
+        $ejemplar->location = $request->input('location');
+        $ejemplar->birth_location = $request->input('birthLocation');
+        $ejemplar->raza = $request->input('raza');
+        $ejemplar->slug = Str::slug($ejemplar->name,'-').'-'.time();
+
+        
+
+        if (empty($request->input('firstName'))) {
+        } else {
+            $proper = new Owner();
+            $proper->name = $request->input('firstName');
+            $proper->last_name = $request->input('lastName');
+            $proper->save();
+        }
+
+        if (empty($request->input('firstNameSeeder'))) {
+        } else {
+            $breeder = new breeder();
+            $breeder->name = $request->input('firstNameSeeder');
+            $breeder->last_name = $request->input('LastNameSeeder');
+            $breeder->web_Page = $request->input('webpage');
+            $breeder->save();
+
+        }
+
+        $breeder = breeder::all();
+        $owner = Owner::all();
+
+        $ejemplar->owner()->associate($owner->last());
+        $ejemplar->breeder()->associate($breeder->last());
+        $ejemplar->save();
+
+        $id = Ejemplar::all();
+
+        $this->saveMedia($request, $id->last());
+        $this->saveRelations($request, $id->last());
+
+    }
+
+    public function simulator($params)
+    {
+        $family = [];
+        $ids = explode("&", $params);
+        foreach ($ids as $key => $value) {
+            $abuelosP = $this->getGenerations($value);
+            $ejemplar = $this->getDetails($value);
+
+            $foo = $key == 0 ? "Macho" : "Hembra";
+
+            $family[$foo] = $abuelosP;
+            $family["Ejemplar " . $foo] = $ejemplar;
+        }
+        // return ;
+        return view('public.arbol', compact('family'));
+
+    }
+
+    public function getGenerations($id)
     {
         $abuelos = [];
-        $abuel = [];
-        $ejemplar = $this->getDetails($id);
-        $brothers = $this->getBrothers($id);
-        $hijos = $this->getChildrens($id);
-        $owner = Owner::find($ejemplar[0]->owner_id);
-        $breeder = breeder::find($ejemplar[0]->breeder_id);
-        $props = [
-            "Propietario" => $owner,
-            "Criador" => $breeder,
 
-        ];
         $temp = [];
         $temp2 = [];
 
@@ -163,6 +183,7 @@ class EjemplarController extends Controller
 
                 foreach ($cuartaG as $key => $value) {
                     array_push($temp2, $value);
+
                 }
             }
 
@@ -179,6 +200,30 @@ class EjemplarController extends Controller
 
         array_push($abuelos, $familia);
 
+        return $abuelos;
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $id = Ejemplar::where('slug', '=', $id)
+            ->firstOrFail();
+        $id = $id->id;
+        $ejemplar = $this->getDetails($id);
+        $brothers = $this->getBrothers($id);
+        $hijos = $this->getChildrens($id);
+        $owner = Owner::find($ejemplar[0]->owner_id);
+        $breeder = breeder::find($ejemplar[0]->breeder_id);
+        $props = [
+            "Propietario" => $owner,
+            "Criador" => $breeder,
+
+        ];
+
         $details = [
             "Detalles" => $ejemplar,
             "Hermanos" => $brothers,
@@ -186,9 +231,20 @@ class EjemplarController extends Controller
             "Dueños" => $props,
         ];
 
-        // return $abuelos;
+        $abuelos = $this->getGenerations($id);
+        // return $details['Detalles'][0]->medias[0]->src;
+
         return view('public.ejemplar', compact('details', 'abuelos'));
 
+    }
+
+    public function getGenre($genre)
+    {
+        $ejemplars = DB::table('ejemplars')
+            ->select('id', 'name', 'birthday', 'color', 'genre')
+            ->where('genre', $genre)
+            ->get();
+        return $ejemplars;
     }
 
     public function getDetails($id)
@@ -287,6 +343,7 @@ class EjemplarController extends Controller
         $details = $this->getDetails($id);
         $padres = $this->getParents($id);
 
+        // return $padres;
         return view('admin.editar-ejemplar', compact('details', 'padres'));
     }
 
@@ -297,10 +354,68 @@ class EjemplarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ejemplar $ejemplar)
+    public function update(Request $request, $id)
     {
-        return $request;
-        //
+        $media = new Media();
+        $ejemplar = new Ejemplar();
+        $ejemplar->where('id', $id)
+            ->update(
+                ['name' => $request['name'],
+                    'birthday' => $request['date'],
+                    'color' => $request['color'],
+                    'genre' => $request['sex'],
+                    'type_register' => $request['typeRegister'],
+                    'location' => $request['location'],
+                    'birth_location' => $request['birthLocation']]
+            );
+        $condicion = $request->input('id_macho');
+
+        for ($i = 0; $i < 2; $i++) {
+            if ($request->input('id_macho') != "" or $request->input('id_hembra') != "") {
+                $foo = $condicion != "" ? [1, 'id_macho'] : [2, 'id_hembra'];
+                $condicion = "";
+
+                $relation = new relation();
+
+                $relation->where([
+                    ['id_relation', '=', $foo[0]],
+                    ['hijo_id', '=', $id],
+                ])
+                    ->update(
+                        ['id_relation' => $foo[0],
+                            'padre_id' => $request->input($foo[1]),
+                        ]
+                    );
+            }
+        }
+
+        if (empty($request->input('firstName'))) {
+        } else {
+            $proper = new Owner();
+            $proper->name = $request->input('firstName');
+            $proper->last_name = $request->input('lastName');
+            $proper->save();
+        }
+
+        if (empty($request->input('firstNameSeeder'))) {
+        } else {
+            $breeder = new breeder();
+            $breeder->name = $request->input('firstNameSeeder');
+            $breeder->last_name = $request->input('LastNameSeeder');
+            $breeder->web_Page = $request->input('webpage');
+            $breeder->save();
+
+        }
+
+        $breeder = breeder::all();
+        $owner = Owner::all();
+        $id = Ejemplar::all();
+
+        $ejemplar->owner()->associate($owner->last());
+        $ejemplar->breeder()->associate($breeder->last());
+        $ejemplar->save();
+
+        $this->saveMedia($request, $id);
     }
 
     /**
@@ -312,5 +427,28 @@ class EjemplarController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ejemplares(Request $request, $raza)
+    {
+
+        if ($request->ajax()) {
+            $filter1 = $request->input('filter1');
+            $filter2 = $request->input('filter2');
+            $filter3 = $request->input('filter3');
+            $razas = Ejemplar::select('ejemplars.slug', 'name', 'color', 'genre', 'type_register', 'birthday', 'src')
+                ->leftJoin('media', 'ejemplars.id', '=', 'media.ejemplar_id')
+                ->where('raza', '=', $raza)
+                ->genre($filter1)
+                ->name($filter3)
+                ->groupBy('ejemplars.id')
+                ->paginate(5);
+
+            // return $razas;
+            return response()->json(view('public.sublista', compact('razas'))->render());
+        }
+
+        return view('public.listado');
+
     }
 }

@@ -10,13 +10,13 @@
                 <h4 class="card-title">Añadir Nuevo ejemplar</h4>
             </div>
             <div class="card-body">
-                <form class="form-group" method="POST" action="{{$url}}" enctype="multipart/form-data">
+                <form class="form-group" method="POST" action="/Ejemplar" enctype="multipart/form-data">
                     @csrf
                     <div class=" row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nombre del ejemplar</label>
-                                <input type="text" class="form-control" placeholder="Company" name="name">
+                                <input type="text" class="form-control" placeholder="Atomos Bully" name="name">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -34,7 +34,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Color del ejemplar</label>
-                                <input type="text" class="form-control" name="color" placeholder="Color">
+                                <input type="text" class="form-control" name="Brown" placeholder="Color">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -45,10 +45,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Tipo de registro</label>
                                 <input type="text" class="form-control" placeholder="F1, F2, F3..." name="typeRegister">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Raza del ejemplar</label>
+                                <select class="form-control" name="raza" id="exampleFormControlSelect1">
+                                        @for ($i = 0; $i < count($razas); $i++) <option>
+                                            {{$razas[$i]->raza}} </option>
+                                            @endfor
+                                    </select>
                             </div>
                         </div>
                     </div>
@@ -76,59 +86,7 @@
                                 <h2>Padres del ejemplar</h2>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group text-center">
-                                    <a href="#" class="btn btn-primary pull-right btn-genre" data-toggle="modal"
-                                        id="btnPadre" data-target="#create">
-                                        Seleccionar Padre
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group text-center">
-                                    <a href="#" class="btn btn-danger pull-right btn-genre" data-toggle="modal"
-                                        data-target="#create" id="btnMadre">
-                                        Seleccionar Madre
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card m-5 d-none"
-                                    style="width: 18rem; border:0px;  margin: 0 auto !important; float: none; margin-bottom: 10px;"
-                                    id="card">
-                                    <img src="https://source.unsplash.com/random/300x300" class="card-img-top"
-                                        style="border-radius:155px;" alt="...">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p>Macho</p>
-                                        <p>3 Años de edad</p>
-                                        <input type="hidden" name="id_macho" id="id_macho" value="">
-                                        <a href="#" class="btn btn-danger btn-fill">Remover</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="card m-5 d-none"
-                                    style="width: 18rem; border:0px;  margin: 0 auto !important; float: none; margin-bottom: 10px;"
-                                    id="card-hembra">
-                                    <img src="https://source.unsplash.com/random/300x300" class="card-img-top"
-                                        style="border-radius:155px;" alt="...">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p>Macho</p>
-                                        <p>3 Años de edad</p>
-                                        <input type="hidden" name="id_hembra" id="id_hembra" value="">
-
-                                        <a href="#" class="btn btn-danger btn-fill">Remover</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('public.seleccion')
                     </div>
 
                     <div class="row">
@@ -192,13 +150,13 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="btn btn-info btn-fill pull-right" value="{{$textBtn}}">
+                    <input type="submit" class="btn btn-info btn-fill pull-right" value="Añadir Ejemplar">
                     <div class="clearfix"></div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ URL::asset('js/js_public/ejemplar.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/admin/ejemplar.js') }}"></script>
 @endsection
 @include('public.modal')

@@ -1,70 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- Compiled and minified Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-    <!-- Minified JS library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Compiled and minified Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <script src="{{ URL::asset('js/core/jquery.min.js') }}"></script>
     <link href="{{ asset('css/tree.css') }}" rel="stylesheet">
     <title>Document</title>
- 
 
-    <script>
-        $(document).ready(function () {
-            $("#seccion").hide();
-            $("#btn").click(function () {
-                $("#seccion").show();
-            });
-        });
-
-    </script>
 </head>
-
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="/public/Logo.png" width="50" height="60" alt="" />
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Inicio
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">American Bully</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Bulldog Francés</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Bulldog Inglés</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Web principal</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <header>
+            <input type="checkbox" id="btn-menu" />
+            <label for="btn-menu"><i class="fa fa-bars" style="color: #B7B9C4"></i></label>
+            <nav class="main-menu">
+                <ul>
+                    <li> <a href="#" class="active"> Inicio</a></li>
+                    <li class="submenu"><a href="#">American Bully</i></a>
+    
+                    </li>
+                    <li class="submenu"><a href="#">Bulldog Francés</a>
+    
+                    </li>
+                    <li><a href="#">Bulldog Inglés</a></li>
+                    <li><a href="#">Web principal</a></li>
+                </ul>
+            </nav>
+        </header>
+
+    <div class="img-top">
         <img class="imagen" src="https://source.unsplash.com/Dfu5e-tKPtM/1600x900" alt="" />
-    </header>
+    </div>
 
 
     <div class="text-center">
@@ -77,9 +48,9 @@
             <div class="col2">
                 <div class="card card2 mt-5" style="width: 25rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{ $family["Ejemplar Macho"][0]->name}}
                     </h4>
-                    <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img" alt="...">
+                    <img src="{{URL::asset('/media/'.$family["Ejemplar Macho"][0]->medias[0]->src)}}" class="card-img" alt="...">
                     <div class="card-body">
                         <p class="quit">dato 1</p>
                         <p class="quit">dato 2</p>
@@ -93,9 +64,9 @@
             <div class="col2">
                 <div class="card card2 mt-5" style="width: 25rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Ejemplar Hembra"][0]->name}}
                     </h4>
-                    <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img" alt="...">
+                    <img src="{{URL::asset('/media/'.$family["Ejemplar Macho"][0]->medias[0]->src)}}" class="card-img" alt="...">
                     <div class="card-body">
                         <p class="quit">dato 1</p>
                         <p class="quit">dato 2</p>
@@ -119,7 +90,7 @@
 
                 <div class="card card2 mt-3 card-der" style="width: 14rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{ $family["Macho"][0]["Segunda generacion"][0]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -131,7 +102,7 @@
 
                 <div class="card card2 mt-3 card-izq" style="width: 14rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Macho"][0]["Segunda generacion"][1]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -143,7 +114,7 @@
 
                 <div class="card card2 mt-3 card-der" style="width: 14rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{ $family["Hembra"][0]["Segunda generacion"][1]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -155,7 +126,7 @@
 
                 <div class="card card2 mt-3 card-izq" style="width: 14rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{ $family["Hembra"][0]["Segunda generacion"][0]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -178,7 +149,7 @@
 
                 <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Macho"][0]["Tercera generacion"][0]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -190,7 +161,7 @@
 
                 <div class="card card2 mt-3 card-izq" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Macho"][0]["Tercera generacion"][1]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -202,7 +173,8 @@
 
                 <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Macho"][0]["Tercera generacion"][2]->name}}
+
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -214,7 +186,7 @@
 
                 <div class="card card2 mt-3 card-izq" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Macho"][0]["Tercera generacion"][3]->name}}
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -226,7 +198,8 @@
 
                 <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Hembra"][0]["Tercera generacion"][0]->name}}
+
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -238,7 +211,8 @@
 
                 <div class="card card2 mt-3 card-izq" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Hembra"][0]["Tercera generacion"][1]->name}}
+
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -250,7 +224,8 @@
 
                 <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Hembra"][0]["Tercera generacion"][2]->name}}
+
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -262,7 +237,8 @@
 
                 <div class="card card2 mt-3  card-izq" style="width: 8rem; ">
                     <h4 class="card-title">
-                        Padre
+                        {{$family["Hembra"][0]["Tercera generacion"][3]->name}}
+
                     </h4>
                     <img src="https://source.unsplash.com/SYznSheH-bA/400x400" class="card-img2" alt="...">
                     <div class="card-body">
@@ -401,15 +377,9 @@
                 <a class="link" href="https://club.colorfussionkc.com/">COLOR FUSSION</a></small>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
-    </script>
+
+    <script type="text/javascript" src="{{ URL::asset('js/core/bootstrap.min.js') }}"></script>
+
 </body>
 
 </html>

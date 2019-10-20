@@ -11,7 +11,7 @@
 |
  */
 
-Route::get('/ejemplars/{genre}', 'EjemplarController@index');
+
 
 Route::get('/', function () {
     return view('public.home');
@@ -19,9 +19,8 @@ Route::get('/', function () {
 Route::get('/buscador', function () {
     return view('public.search');
 });
-Route::get('/cruza', function () {
-    return view('public.arbol');
-});
+Route::get('/simulacion/{params}', 'EjemplarController@simulator');
+   
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
@@ -37,24 +36,18 @@ Route::get('/pagina/{name}', function () {
 
 /* Crud del ejemplar */
 
-//Vista añadir ejemplar
-Route::get('/agregar-ejemplar', function () {
-    $url = "/example";
-    $textBtn = "Añadir Ejemplar";
-    return view('admin.ejemplar', compact('url', 'textBtn', 'datos'));
-});
-
-
 // Crud Resources de ejemplar
 Route::resource('Ejemplar', 'EjemplarController');
 
 
 /** Ejemplares */
 
+//Ejemplares por genero
+Route::get('/Ejemplars/g/{genre}', 'EjemplarController@getGenre');
+
 // Listar ejemplares
-Route::get('/ejemplares', function () {
-    return view('admin.ejemplares');
-});
+Route::get('/Ejemplares/{raza} ', 'EjemplarController@ejemplares');
+
 
 /* Leer Media */
 Route::get('/Media/{id}', 'EjemplarController@getMedia');

@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ejemplar extends Model
 {
-    // public function images()
-    // {
-    //     return $this->hasMany('App\Media');
-    // }
+    # This property!
+    // protected $fillable = ['name','birthday','color','genre','type_register','location','birth_location','breeder_id','owner_id'];
+
     public function owner()
     {
         return $this->belongsTo('App\Owner');
     }
-    
+
     public function breeder()
     {
         return $this->belongsTo('App\breeder');
@@ -24,4 +23,20 @@ class Ejemplar extends Model
     {
         return $this->hasMany('App\relation');
     }
-}
+
+    //Scope
+    public function scopeGenre($query, $genre)
+    {
+        if ($genre) {
+            return $query->where('genre', 'LIKE', "%$genre%");
+        }
+
+    }
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->where('name', 'LIKE', "%$name%");
+        }
+
+    }
+    }

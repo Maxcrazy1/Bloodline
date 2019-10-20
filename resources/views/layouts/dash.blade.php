@@ -143,9 +143,8 @@
 
 </body>
 <!--   Core JS Files   -->
-{{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script> --}}
 
-{{-- <script src="{{ asset('js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script> --}}
+{{-- <script src="{{ asset('js/core/jquery.min.js') }}" type="text/javascript"></script> --}}
 <script src="{{ asset('js/core/popper.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/core/bootstrap.min.js') }}" type="text/javascript"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
@@ -158,6 +157,7 @@
 <script src="{{ asset('js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{ asset('js/demo.js') }}"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         demo.initDashboardPageCharts();
