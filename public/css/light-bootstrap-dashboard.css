@@ -189,6 +189,10 @@ h1 .subtitle {
     color: #1DC7EA !important;
 }
 
+.center-ul {
+    display: flex;
+    justify-content: space-around;
+}
 .text-success,
 .text-success:hover {
     color: #87CB16 !important;

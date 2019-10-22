@@ -1,48 +1,50 @@
 @extends('layouts.app')
-@section('title', 'Page Title')
 
+@section('title',$page[0]->name)
+
+@push('styles')
+<link href="{{$urlFont}}" rel="stylesheet">
+<style>
+
+    h2, p{
+        color: {{$page[0]->color_font}};
+        font-size:{{$page[0]->font_size}}px !important;   
+    }
+    #header {
+        font-family: {{$font}};
+        
+    }
+</style>
+@endpush
 @section('content')
 
-<header id="header">
+<div id="header">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            @foreach ($media as $item => $key)
+                @if ($item==0)
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{$item}}" class="active"></li>
+                @else
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{$item}}"></li>
+                @endif
+            @endforeach
+
         </ol>
         <div class="carousel-inner" role="listbox">
             <!-- Slide One - Set the background image for this slide in the line below -->
-            <div class="carousel-item active"
-                style="background-image: url('https://source.unsplash.com/6yOg6cEHmgs/1920x1080')">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4">Bully bravo</h2>
-                    <p class="lead">
-                        Lorem, ipsum dolor.
-                    </p>
+            @foreach ($media as $item => $key)
+            @if ($item==0)
+                <div class="carousel-item active"
+                style="background-image: url({{URL::asset('/media/pages/'.$key->src)}})">
+            @else
+             <div class="carousel-item"
+                style="background-image: url({{URL::asset('/media/pages/'.$key->src)}})">
+            @endif
 
-                </div>
-
+                
             </div>
-            <!-- Slide Two - Set the background image for this slide in the line below -->
-            <div class="carousel-item"
-                style="background-image: url('https://source.unsplash.com/JSfsK9VH4q8/1920x1080')">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4">Bully bravo</h2>
-                    <p class="lead">
-                        Lorem, ipsum dolor.
-                    </p>
-                </div>
-            </div>
-            <!-- Slide Three - Set the background image for this slide in the line below -->
-            <div class="carousel-item"
-                style="background-image: url('https://source.unsplash.com/E9VhlOb9gmk/1920x1080')">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4">Bully bravo</h2>
-                    <p class="lead">
-                        Lorem, ipsum dolor.
-                    </p>
-                </div>
-            </div>
+            @endforeach
+            
 
         </div>
 
@@ -55,6 +57,5 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-
-</header>
+</div>
 @endsection

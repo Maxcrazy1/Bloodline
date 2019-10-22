@@ -13,9 +13,9 @@
 
 
 
-Route::get('/', function () {
-    return view('public.home');
-});
+// Route::get('/', function () {
+//     return view('public.home');
+// });
 Route::get('/buscador', function () {
     return view('public.search');
 });
@@ -30,30 +30,32 @@ Route::get('/paginas', function () {
     return view('admin.pages');
 });
 
-Route::get('/pagina/{name}', function () {
-    return view('admin.editar-pagina');
-});
+
 
 /* Crud del ejemplar */
 
 // Crud Resources de ejemplar
 Route::resource('Ejemplar', 'EjemplarController');
 
+Route::get('Ejemplar/{id}/delete', 'EjemplarController@destroy');
+
 
 /** Ejemplares */
 
-//Ejemplares por genero
-Route::get('/Ejemplars/g/{genre}', 'EjemplarController@getGenre');
+// //Ejemplares por genero
+Route::get('/Admin/Ejemplars', 'EjemplarController@getEjemplars');
 
 // Listar ejemplares
-Route::get('/Ejemplares/{raza} ', 'EjemplarController@ejemplares');
+Route::get('/Ejemplares/{raza}', 'pagesController@ejemplares');
 
 
 /* Leer Media */
 Route::get('/Media/{id}', 'EjemplarController@getMedia');
 
-// Route::get('/', function () {
 
-//     return view('welcome');
+Route::get('/{name}', 'pagesController@page');
 
-// });
+
+Route::get('/pagina/{page}', function ($page) {
+    return view('admin.editar-'.$page);
+});

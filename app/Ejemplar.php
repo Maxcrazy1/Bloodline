@@ -39,4 +39,19 @@ class Ejemplar extends Model
         }
 
     }
+    public function scopeColor($query, $color)
+    {
+        if ($color) {
+            return $query->where('color', 'LIKE', "%$color%");
+        }
+
+    }
+
+    public function scopeRaza($query, $raza)
+    {
+        if ($raza) {
+            return $query->where('raza', 'LIKE', "%$raza%");
+        }
+
+    }
     }

@@ -7,20 +7,49 @@ use App\Ejemplar;
 use App\Media;
 use App\Owner;
 use App\relation;
+use DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use DB;
 use Image;
 
 class EjemplarController extends Controller
 {
+    public $notificacion="";
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Ejemplar $ejemplar)
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $filter1 = $request->input('filter1');
+            $filter2 = $request->input('filter2');
+            $filter3 = $request->input('filter3');
+            $filter4 = $request->input('filter4');
+            $ejemplares = Ejemplar::select('ejemplars.slug', 'name', 'color', 'genre', 'type_register', 'birthday', 'src')
+                ->leftJoin('media', 'ejemplars.id', '=', 'media.ejemplar_id')
+                ->genre($filter1)
+                ->color($filter2)
+                ->name($filter3)
+                ->raza($filter4)
+                ->groupBy('ejemplars.id')
+                ->paginate(15);
+
+            $req = "admin";
+            return response()->json(view('public.sublista', compact('ejemplares', 'req'))->render());
+        }
+
+        $razas = DB::table('razas')
+        ->select('raza')
+        ->get();
+
+        $ejemplares = Ejemplar::paginate(10);
+        $req = "admin";
+        $notif="";
+    
+        return view('admin.ejemplares', compact('ejemplares', 'req','razas','notif'))->render();
     }
 
     /**
@@ -112,9 +141,7 @@ class EjemplarController extends Controller
         $ejemplar->location = $request->input('location');
         $ejemplar->birth_location = $request->input('birthLocation');
         $ejemplar->raza = $request->input('raza');
-        $ejemplar->slug = Str::slug($ejemplar->name,'-').'-'.time();
-
-        
+        $ejemplar->slug = Str::slug($ejemplar->name, '-') . '-' . time();
 
         if (empty($request->input('firstName'))) {
         } else {
@@ -153,8 +180,11 @@ class EjemplarController extends Controller
         $family = [];
         $ids = explode("&", $params);
         foreach ($ids as $key => $value) {
-            $abuelosP = $this->getGenerations($value);
-            $ejemplar = $this->getDetails($value);
+            $id = Ejemplar::where('slug', '=', $value)
+                ->firstOrFail();
+            $id = $id->id;
+            $abuelosP = $this->getGenerations($id);
+            $ejemplar = $this->getDetails($id);
 
             $foo = $key == 0 ? "Macho" : "Hembra";
 
@@ -175,10 +205,11 @@ class EjemplarController extends Controller
 
         $segundaG = $this->getParents($id);
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < count($segundaG); $i++) {
             $terceraG = $this->getParents($segundaG[$i]->padre_id);
+            # code...
 
-            for ($j = 0; $j < 2; $j++) {
+            for ($j = 0; $j < count($terceraG); $j++) {
                 $cuartaG = $this->getParents($terceraG[$j]->padre_id);
 
                 foreach ($cuartaG as $key => $value) {
@@ -238,13 +269,9 @@ class EjemplarController extends Controller
 
     }
 
-    public function getGenre($genre)
+    public function getEjemplars(Request $request)
     {
-        $ejemplars = DB::table('ejemplars')
-            ->select('id', 'name', 'birthday', 'color', 'genre')
-            ->where('genre', $genre)
-            ->get();
-        return $ejemplars;
+        
     }
 
     public function getDetails($id)
@@ -340,10 +367,12 @@ class EjemplarController extends Controller
      */
     public function edit($id)
     {
+        $id = Ejemplar::where('slug', '=', $id)
+            ->firstOrFail();
+        $id = $id->id;
         $details = $this->getDetails($id);
         $padres = $this->getParents($id);
 
-        // return $padres;
         return view('admin.editar-ejemplar', compact('details', 'padres'));
     }
 
@@ -424,31 +453,17 @@ class EjemplarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        // $id = Ejemplar::where('slug', '=', $id)
+        //     ->firstOrFail();
+        // $id = $id->id;
+
+        // Ejemplar::destroy($id);
+
+        return redirect()->action('EjemplarController@index');
+       
     }
 
-    public function ejemplares(Request $request, $raza)
-    {
-
-        if ($request->ajax()) {
-            $filter1 = $request->input('filter1');
-            $filter2 = $request->input('filter2');
-            $filter3 = $request->input('filter3');
-            $razas = Ejemplar::select('ejemplars.slug', 'name', 'color', 'genre', 'type_register', 'birthday', 'src')
-                ->leftJoin('media', 'ejemplars.id', '=', 'media.ejemplar_id')
-                ->where('raza', '=', $raza)
-                ->genre($filter1)
-                ->name($filter3)
-                ->groupBy('ejemplars.id')
-                ->paginate(5);
-
-            // return $razas;
-            return response()->json(view('public.sublista', compact('razas'))->render());
-        }
-
-        return view('public.listado');
-
-    }
+   
 }
