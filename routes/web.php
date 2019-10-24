@@ -19,7 +19,6 @@
 Route::get('/buscador', function () {
     return view('public.search');
 });
-Route::get('/simulacion/{params}', 'EjemplarController@simulator');
    
 
 Route::get('/dashboard', function () {
@@ -59,3 +58,7 @@ Route::get('/{name}', 'pagesController@page');
 Route::get('/pagina/{page}', function ($page) {
     return view('admin.editar-'.$page);
 });
+
+Route::get('/Ejemplares/{raza}', 'pagesController@ejemplares');
+
+Route::get('/simulacion/{params}', 'pagesController@simulator');

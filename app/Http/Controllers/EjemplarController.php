@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use App\breeder;
 use App\Ejemplar;
+use App\Http\Controllers\pagesController;
 use App\Media;
 use App\Owner;
 use App\relation;
 use DB;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 
 class EjemplarController extends Controller
 {
-    public $notificacion="";
+    public $notificacion = "";
     /**
      * Display a listing of the resource.
      *
@@ -42,14 +42,14 @@ class EjemplarController extends Controller
         }
 
         $razas = DB::table('razas')
-        ->select('raza')
-        ->get();
+            ->select('raza')
+            ->get();
 
         $ejemplares = Ejemplar::paginate(10);
         $req = "admin";
-        $notif="";
-    
-        return view('admin.ejemplares', compact('ejemplares', 'req','razas','notif'))->render();
+        $notif = "";
+
+        return view('admin.ejemplares', compact('ejemplares', 'req', 'razas', 'notif'))->render();
     }
 
     /**
@@ -241,6 +241,7 @@ class EjemplarController extends Controller
      */
     public function show($id)
     {
+        $page = new pagesController();
         $id = Ejemplar::where('slug', '=', $id)
             ->firstOrFail();
         $id = $id->id;
@@ -263,15 +264,15 @@ class EjemplarController extends Controller
         ];
 
         $abuelos = $this->getGenerations($id);
-        // return $details['Detalles'][0]->medias[0]->src;
 
-        return view('public.ejemplar', compact('details', 'abuelos'));
+        $page = $page->show();
+        return view('public.ejemplar', compact('details', 'abuelos', 'page'));
 
     }
 
     public function getEjemplars(Request $request)
     {
-        
+
     }
 
     public function getDetails($id)
@@ -462,8 +463,7 @@ class EjemplarController extends Controller
         // Ejemplar::destroy($id);
 
         return redirect()->action('EjemplarController@index');
-       
+
     }
 
-   
 }

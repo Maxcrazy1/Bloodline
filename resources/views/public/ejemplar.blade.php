@@ -1,16 +1,42 @@
-@extends('layouts.app')
-@section('title', 'Ejemplar')
+<!DOCTYPE html>
+<html lang="en">
 
-@push('styles')
-<link href="{{ asset('css/ejemplar.css') }}" rel="stylesheet">
-@endpush
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="{{ asset('js/core/jquery.min.js') }}"></script>
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ejemplar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('icons/css/all.min.css') }}">
+    <link href="{{$page["urlFont"]}}" rel="stylesheet">
+    @include('public.personal-ejemplar')
+</head>
+<style>
 
-@section('content')
-<div class="top">
-    <div class="container-fluid">
+</style>
+
+<body>
+    <header>
+        <input type="checkbox" id="btn-menu" />
+        <label for="btn-menu"><i class="fa fa-bars" style="color: #B7B9C4"></i></label>
+        <nav class="main-menu">
+            <ul>
+                <li> <a href="#" class="active"> Inicio</a></li>
+                <li class="submenu"><a href="#">American Bully</i></a>
+                </li>
+                <li class="submenu"><a href="#">Bulldog Francés</a>
+                </li>
+                <li><a href="#">Bulldog Inglés</a></li>
+                <li><a href="#">Web principal</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container-fluid bg-image">
 
         <div class="row bg-claro">
-            <div class=" column mt-2">
+            <div class="column mt-2 details">
                 <h5 class="text-center marco">
                     Información del ejemplar
                 </h5>
@@ -64,7 +90,7 @@
             </div>
 
             <div class="column text-center ">
-                <h5>{{$details['Detalles'][0]->name}}</h5>
+                <h5 class="title-nombre">{{$details['Detalles'][0]->name}}</h5>
 
                 <video id="video-portada" class="embed-responsive-item imagen" src="" allowfullscreen controls
                     style="display:none;"></video>
@@ -108,7 +134,7 @@
                 </div>
             </div>
 
-            <div class=" column mt-2">
+            <div class="column mt-2 details">
                 <div class="marco  mb-2">
                     <h5 class="text-center">Genealogia</h5>
                 </div>
@@ -135,7 +161,7 @@
                 </div>
 
                 <div class="container mt-5">
-                    <div class="row ml-3">
+                    <div class="row ml-3 ">
                         <div class="col">
                             <label for="exampleFormControlSelect1">Hijos registrados</label>
                         </div>
@@ -169,503 +195,567 @@
             </div>
         </div>
 
-        <div class="row mt-5 mb-5">
+        <div class="row mt-5">
             <div class="column">
-                <h5 class="text-center">Padres (2da. Generación)</h5>
+                <h5 class="text-center titulos">Padres (2da. Generación)</h5>
 
-                <div class="card m-padre" style="width: 22rem; margin:auto;">
-                    <div class="card-body">
+                <div class="card m-padre mb-250">
+                    <div class="card-body name-padre">
                         @if (count($abuelos[0]['Segunda generacion'])>1)
 
-                        <h5 class="card-title text-center">{{$abuelos[0]["Segunda generacion"][0]->name}}</h5>
-                        <img src="{{URL::asset('/media/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}"
-                            style="" class="card-img-top rounded" alt="...">
+                        <h5 class="card-title text-center ">{{$abuelos[0]["Segunda generacion"][0]->name}}</h5>
+                        <a href="/Ejemplar/{{$abuelos[0]["Segunda generacion"][0]->slug}}">
 
+
+                            @if (count($abuelos[0]["Segunda generacion"][0]->medias)>0)
+
+                            <img src="{{URL::asset('/media/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}"
+                                style="" class="card-img-top rounded" alt="...">
+
+                            @else
+                            <img src="{{URL::asset('/media/silueta.png')}}" style="" class="card-img-top rounded"
+                                alt="...">
+                            @endif
+                        </a>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][0]->type_register}} </p>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][0]->color}}</p>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][0]->location}}</p>
 
                         @else
                         <h5 class="card-title text-center">No existen registros</h5>
-                        <img src="{{URL::asset('/media/silueta.png')}}" style="" class="card-img-top rounded" alt="...">
+                        <img src="{{URL::asset('/media/no-existe.png')}}" style="" class="card-img-top rounded"
+                            alt="...">
 
-                        <p class="quit"> </p>
-                        <p class="quit"></p>
-                        <p class="quit"></p>
+                        <p class="quit mb-5"></p>
                         @endif
                     </div>
                 </div>
 
 
-                <div class="card m-madre m-padre" style="width: 22rem; margin:auto;">
-                    <div class="card-body">
+                <div class="card m-madre m-padre pb-90">
+                    <div class="card-body name-padre">
 
                         @if (count($abuelos[0]['Segunda generacion'])>1)
 
-                        <h5 class="card-title text-center">{{$abuelos[0]["Segunda generacion"][1]->name}}</h5>
-                        <img src="{{URL::asset('/media/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}"
-                            class="card-img-top rounded" alt="...">
+                        <h5 class="card-title text-center ">{{$abuelos[0]["Segunda generacion"][1]->name}}</h5>
+                        <a href="/Ejemplar/{{$abuelos[0]["Segunda generacion"][1]->slug}}">
+                            @if (count($abuelos[0]["Segunda generacion"][1]->medias)>0)
 
+
+                            <img src="{{URL::asset('/media/'.$abuelos[0]["Segunda generacion"][1]->medias[0]->src)}}"
+                                class="card-img-top rounded" alt="...">
+                            @else
+                            <img src="{{URL::asset('/media/silueta.png')}}" style="" class="card-img-top rounded"
+                                alt="...">
+                            @endif
+                        </a>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][1]->type_register}}</p>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][1]->color}}</p>
                         <p class="quit">{{$abuelos[0]["Segunda generacion"][1]->location}}</p>
+                        @else
+                        <h5 class="card-title text-center">No existen registros</h5>
+
+                        <img src="{{URL::asset('/media/no-existe.png')}}" style="" class="card-img-top rounded"
+                            alt="...">
+                        @endif
+
                     </div>
-                    @else
-                    <h5 class="card-title text-center">No existen registros</h5>
-                    <img src="{{URL::asset('/media/silueta.png')}}" style="" class="card-img-top rounded" alt="...">
-
-                    <p class="quit"> </p>
-                    <p class="quit"></p>
-                    <p class="quit mb-5"></p>
-                    @endif
-
                 </div>
+
             </div>
 
-            <div class="column ">
-                <h5 class="text-center">Abuelos (3ra. Generación)</h5>
+            <div class="column">
+                <h5 class="text-center titulos">Abuelos (3ra. Generación)</h5>
 
-                <div class="card mt-5 abuelos abuelos-top" style="width: 439 !important; height: 207px; margin:auto;">
+
+                <div class="card mt-5 abuelos">
                     <div class="card-body">
                         <div class="row">
-                            @if (count($abuelos[0]['Tercera generacion'])>0)
-
                             <div class="col">
-                                @if (count($abuelos[0]['Tercera generacion'][0]->medias)>1)
 
-                                <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][0]->medias[0]->src)}}"
-                                    class="card-img-top rounded abuelos-img" alt="...">
-                                @else
-                                <img src="{{URL::asset('/media/thumbs/silueta.png')}}"
-                                    class="card-img-top rounded abuelos-img" alt="...">
-                                @endif
+                                @if (count($abuelos[0]['Tercera generacion'])>0)
+
+
+                                <a href="/Ejemplar/{{$abuelos[0]["Tercera generacion"][0]->slug}}">
+
+                                    @if (count($abuelos[0]['Tercera generacion'][0]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][0]->medias[0]->src)}}"
+                                        class="card-img-top rounded abuelos-img" alt="...">
+                                    @else
+                                    <img src="{{URL::asset('/media/silueta.png')}}"
+                                        class="card-img-top rounded abuelos-img" alt="...">
+
+                                    @endif
+                                </a>
                             </div>
                             <div class="col text-center">
+                                <h5>{{$abuelos[0]["Tercera generacion"][0]->name}}</h5>
                                 <p class="quit">{{$abuelos[0]["Tercera generacion"][0]->color}}</p>
                                 <p class="quit">{{$abuelos[0]["Tercera generacion"][0]->type_register}}</p>
                                 <p class="quit">{{$abuelos[0]["Tercera generacion"][0]->location}}</p>
                             </div>
                             @else
 
-                            @endif
+                            <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded abuelos-img"
+                                alt="...">
                         </div>
+                        <div class="col text-center">
+
+                            <h5>No existen registros</h5>
+
+                        </div>
+                        @endif
                     </div>
                 </div>
-                <div class="card mt-5 abuelos" style="width: 439; height: 207px; margin:auto;">
-                    <div class="card-body">
-                        <div class="row">
+            </div>
+
+            <div class="card mt-5 abuelos">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
                             @if (count($abuelos[0]['Tercera generacion'])>1)
 
-                            <div class="col">
-                                @if (count($abuelos[0]['Tercera generacion'][1]->medias)>1)
+                            <a href="/Ejemplar/{{$abuelos[0]["Tercera generacion"][1]->slug}}">
 
+                                @if (count($abuelos[0]['Tercera generacion'][1]->medias)>0)
                                 <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][1]->medias[0]->src)}}"
                                     class="card-img-top rounded abuelos-img" alt="...">
                                 @else
                                 <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded abuelos-img"
                                     alt="...">
                                 @endif
-                            </div>
-                            <div class="col text-center">
-                                <h5>{{$abuelos[0]["Tercera generacion"][1]->name}}</h5>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][1]->color}}</p>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][1]->type_register}}</p>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][1]->location}}</p>
-                            </div>
-                            @endif
+                            </a>
                         </div>
-                    </div>
-                </div>
-
-                <div class="card m-maternas abuelos" style="width: 439; height: 207px; margin:auto;">
-                    <div class="card-body">
-                        <div class="row">
-                            @if (count($abuelos[0]['Tercera generacion'])>2)
-
-                            <div class="col">
-                                @if (count($abuelos[0]['Tercera generacion'][2]->medias)>2)
-
-                                <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][2]->medias[0]->src)}}"
-                                    class="card-img-top rounded abuelos-img" alt="...">
-                                @else
-                                <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded abuelos-img"
-                                    alt="...">
-                                @endif
-                            </div>
-                            <div class="col text-center">
-                                <h5>{{$abuelos[0]["Tercera generacion"][2]->name}}</h5>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][2]->color}}</p>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][2]->type_register}}</p>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][2]->location}}</p>
-                            </div>
-                            @endif
+                        <div class="col text-center">
+                            <h5>{{$abuelos[0]["Tercera generacion"][1]->name}}</h5>
+                            <p class="quit">{{$abuelos[0]["Tercera generacion"][1]->color}}</p>
+                            <p class="quit">{{$abuelos[0]["Tercera generacion"][1]->type_register}}</p>
+                            <p class="quit">{{$abuelos[0]["Tercera generacion"][1]->location}}</p>
                         </div>
+                        @else
+                        <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded abuelos-img"
+                            alt="...">
                     </div>
-                </div>
-                <div class="card mt-5 abuelos" style="width: 439; height: 207px; margin:auto;">
-                    <div class="card-body">
-                        <div class="row">
-                            @if (count($abuelos[0]['Tercera generacion'])>3)
+                    <div class="col text-center">
 
-                            <div class="col">
-                                @if (count($abuelos[0]['Tercera generacion'][3]->medias)>3)
-
-                                <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][3]->medias[0]->src)}}"
-                                    class="card-img-top rounded abuelos-img" alt="...">
-                                @else
-                                <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded abuelos-img"
-                                    alt="...">
-                                @endif
-                            </div>
-                            <div class="col text-center">
-                                <h5>{{$abuelos[0]["Tercera generacion"][3]->name}}</h5>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][3]->color}}</p>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][3]->type_register}}</p>
-                                <p class="quit">{{$abuelos[0]["Tercera generacion"][3]->location}}</p>
-                            </div>
-                            @endif
-                        </div>
+                        <h5>No existen registros</h5>
                     </div>
-                </div>
+                    @endif
 
+                </div>
             </div>
-            <div class="column">
-                <h5 class="text-center">Bisabuelos (4ta. Generación)</h5>
+        </div>
 
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                            @if (count($abuelos[0]['Cuarta generacion'])>0)
+        <div class="card m-maternas abuelos">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        @if (count($abuelos[0]['Tercera generacion'])>2)
 
-                            <div class="col">
-                                @if (count($abuelos[0]['Cuarta generacion'][0]->medias)>0)
+                        <a href="/Ejemplar/{{$abuelos[0]["Tercera generacion"][2]->slug}}">
 
-                                <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][0]->medias[0]->src)}}
-                                    class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                    style="width:80%;">
-
-                                @else
-                                <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                    alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                @endif
-
-                            </div>
-                            <div class="col text-center mt-2">
-
-                                <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->name}}</p>
-                                <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->color}}</p>
-                                <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->location}}</p>
-                                <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->type_register}}</p>
-
-                            </div>
+                            @if (count($abuelos[0]['Tercera generacion'][2]->medias)>0)
+                            <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][2]->medias[0]->src)}}"
+                                class="card-img-top rounded abuelos-img" alt="...">
                             @else
-                            <div class="col">
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">No existen registros</p>
-    
-                                </div>
+                            <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded abuelos-img"
+                                alt="...">
                             @endif
-                        </div>
+                        </a>
                     </div>
-                </div>
-
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>1)
-
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][1]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][1]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
+                    <div class="col text-center">
+                        <h5>{{$abuelos[0]["Tercera generacion"][2]->name}}</h5>
+                        <p class="quit">{{$abuelos[0]["Tercera generacion"][2]->color}}</p>
+                        <p class="quit">{{$abuelos[0]["Tercera generacion"][2]->type_register}}</p>
+                        <p class="quit">{{$abuelos[0]["Tercera generacion"][2]->location}}</p>
                     </div>
+                    @else
+                    <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded abuelos-img"
+                        alt="...">
                 </div>
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>2)
+                <div class="col text-center">
 
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][2]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][2]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
-                        </div>
-                    </div>
+                    <h5>No existen registros</h5>
                 </div>
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>3)
-
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][3]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][3]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card bisa bisa-mat" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>4)
-
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][4]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][4]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>5)
-
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][5]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][5]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>6)
-
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][6]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][6]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-2 bisa" style="width: 322px; height: 121px; margin:auto;">
-                    <div class="card-body" style="padding:0px !important">
-                        <div class="row">
-                                @if (count($abuelos[0]['Cuarta generacion'])>7)
-
-                                <div class="col">
-                                    @if (count($abuelos[0]['Cuarta generacion'][7]->medias)>0)
-    
-                                    <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][7]->medias[0]->src)}}
-                                        class=" card-img-top rounded bisa-img" alt="..." style="width:80%; margin:9%;"
-                                        style="width:80%;">
-    
-                                    @else
-                                    <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                        alt="..." style="width:80%; margin:9%;" style="width:80%;">
-                                    @endif
-    
-                                </div>
-                                <div class="col text-center mt-2">
-    
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->name}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->color}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->location}}</p>
-                                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->type_register}}</p>
-    
-                                </div>
-                                @else
-                                <div class="col">
-                                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
-                                            alt="..." style="width:80%; margin:9%;" style="width:80%;">
-        
-                                    </div>
-                                    <div class="col text-center mt-2">
-        
-                                        <p class="quit">No existen registros</p>
-        
-                                    </div>
-                                @endif
-                        </div>
-                    </div>
-                </div>
+                @endif
 
             </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript" src="{{ URL::asset('js/public/images.js') }}"></script>
-@endsection
+    <div class="card mt-5 abuelos">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    @if (count($abuelos[0]['Tercera generacion'])>3)
+
+                    <a href="/Ejemplar/{{$abuelos[0]["Tercera generacion"][3]->slug}}">
+
+                        @if (count($abuelos[0]['Tercera generacion'][3]->medias)>0)
+                        <img src="{{URL::asset('/media/'.$abuelos[0]["Tercera generacion"][3]->medias[0]->src)}}"
+                            class="card-img-top rounded abuelos-img" alt="...">
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded abuelos-img"
+                            alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <h5>{{$abuelos[0]["Tercera generacion"][0]->name}}</h5>
+                    <p class="quit">{{$abuelos[0]["Tercera generacion"][3]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Tercera generacion"][3]->type_register}}</p>
+                    <p class="quit">{{$abuelos[0]["Tercera generacion"][3]->location}}</p>
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded abuelos-img" alt="...">
+            </div>
+            <div class="col text-center">
+
+                <h5>No existen registros</h5>
+            </div>
+            @endif
+
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+    <div class="column">
+        <h5 class="text-center titulos">Bisabuelos (4ta. Generación)</h5>
+
+        <div class="card mt-2 bisa bisa-pat">
+            <div class="card-body" style="padding:0px !important">
+                <div class="row">
+                    <div class="col">
+
+                        @if (count($abuelos[0]['Cuarta generacion'])>0)
+                        <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][0]->slug}}">
+                            @if (count($abuelos[0]['Cuarta generacion'][0]->medias)>0)
+
+                            <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][0]->medias[0]->src)}}"
+                                class=" card-img-top rounded bisa-img" alt="...">
+
+                            @else
+                            <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img"
+                                alt="...">
+                            @endif
+                        </a>
+                    </div>
+                    <div class="col text-center mt-2">
+
+                        <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->name}}</p>
+                        <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->color}}</p>
+                        <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->location}}</p>
+                        <p class="quit">{{$abuelos[0]["Cuarta generacion"][0]->type_register}}</p>
+
+                    </div>
+                    @else
+                    <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">No existen registros</p>
+
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2 bisa">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>1)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][1]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][1]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][1]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][1]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+
+    <div class="card mt-2 bisa">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>2)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][2]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][2]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][2]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][2]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+
+    <div class="card mt-2 bisa">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>3)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][3]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][3]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][3]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][3]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+
+    <div class="card bisa bisa-mat">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>4)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][4]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][4]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][4]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][4]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+
+    <div class="card mt-2 bisa">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>5)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][5]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][5]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][5]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][5]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+
+    <div class="card mt-2 bisa">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>6)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][6]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][6]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][6]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][6]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+
+    <div class="card mt-2 bisa">
+        <div class="card-body" style="padding:0px !important">
+            <div class="row">
+                <div class="col">
+
+                    @if (count($abuelos[0]['Cuarta generacion'])>7)
+                    <a href="/Ejemplar/{{$abuelos[0]["Cuarta generacion"][7]->slug}}">
+                        @if (count($abuelos[0]['Cuarta generacion'][7]->medias)>0)
+
+                        <img src="{{URL::asset('/media/thumbs/'.$abuelos[0]["Cuarta generacion"][7]->medias[0]->src)}}"
+                            class=" card-img-top rounded bisa-img" alt="...">
+
+                        @else
+                        <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded bisa-img" alt="...">
+                        @endif
+                    </a>
+                </div>
+                <div class="col text-center mt-2">
+
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->name}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->color}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->location}}</p>
+                    <p class="quit">{{$abuelos[0]["Cuarta generacion"][7]->type_register}}</p>
+
+                </div>
+                @else
+                <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded bisa-img" alt="">
+
+            </div>
+            <div class="col text-center mt-2">
+
+                <p class="quit">No existen registros</p>
+
+            </div>
+            @endif
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    </div>
+    </div>
+
+
+
+
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+            <small>&copy; 2019 DERECHOS RESERVADOS. REALIZADO POR
+                <a class="link" href="https://club.colorfussionkc.com/">COLOR FUSSION</a></small>
+        </div>
+    </footer>
+    <script type="text/javascript" src="{{ URL::asset('js/public/images.js') }}"></script>
+    <script src="{{ URL::asset('js/core/popper.min.js') }}"></script>
+    <script src="{{ URL::asset('js/core/bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>

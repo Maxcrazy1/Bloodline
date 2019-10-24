@@ -1,10 +1,4 @@
-.bg-marca {
-    background: url("laravel/public/marca-de-agua.png") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
+
 
 .imagen {
     width: 100%;
@@ -16,82 +10,17 @@
     color: #82ba3d;
 }
 
-.img-top{
+.img-top {
     margin-top: 1rem;
 
 }
 
-header {
-    height: 64px;
-    background: rgb(255, 255, 255);
-    color: #FFF;
-    display: flex;
-    justify-content: flex-end;
-    margin-top:-20px;
-}
-
-#btn-menu {
-    display: none;
-}
-
-header label {
-    font-size: 30px;
-    cursor: pointer;
-    display: none;
-}
-
-.active {
-    background-color: #82ba3d;
-    color: #FFF !important;
-}
-
-.main-menu ul {
-    background: rgb(255, 255, 255);
-    display: flex;
-    list-style: none;
-    padding: 20px;
-}
-
-.main-menu ul ul {
-    display: none;
-}
-
-.main-menu a {
-    display: block;
-    padding: 15px 20px;
-    color: #3C3F4D;
-    text-decoration: none;
-    line-height: 35px;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 100;
-}
-
-.main-menu a:hover {
-    background: #ABD17D;
-}
-
-.main-menu a i {
-    margin-left: 10px;
-}
-
-.main-menu ul li:hover ul {
-    transition: all 0.3s ease;
-    display: block;
-    position: absolute;
-    z-index: 1;
-}
-
-
-
-.navbar {
-    background: rgba(255, 255, 255, 0.4);
-}
 
 .card {
     border: none;
 }
 
-.col2>.card2>.card-img {
+.col2>.card2>a>.card-img {
     width: 320px !important;
     height: 215px !important;
     object-fit: cover;
@@ -102,7 +31,7 @@ header label {
 
 }
 
-.col4>.card2>.card-img2 {
+.col4>.card2>a>.card-img2 {
     width: 262px !important;
     height: 192px !important;
     object-fit: cover;
@@ -121,15 +50,8 @@ header label {
     margin-right: 15px;
 }
 
-.col8>.card-der {
-    margin-left: 5px;
-}
 
-.col8>.card-izq {
-    margin-right: 5px;
-}
-
-.col8>.card2>.card-img2 {
+.col8>.card2>a>.card-img2 {
     width: 145px !important;
     height: 112px !important;
     object-fit: cover;
@@ -139,8 +61,8 @@ header label {
     border-width: 1px;
 }
 
-.col16>.mini-card>.card-img2 {
-    width: 73px !important;
+.col16>.mini-card>a>.card-img2 {
+    width: 68px !important;
     height: 60px !important;
     object-fit: cover;
     border-style: solid;
@@ -150,6 +72,12 @@ header label {
 
 .card-img2 {
     width: 90%;
+}
+
+
+.col16>.mini-card>.card-img2 {
+    width: 68px !important;
+    height: 60px !important;
 }
 
 .quit {
@@ -190,19 +118,46 @@ header label {
 
 }
 
-.col8 {
+.b-abuelos-m{
+    width: 50% !important;
+}
+.b-abuelos-p{
+    width: 50% !important;
+}
+.b-abuelos-p>.col8 {
     float: left;
-    width: 12.5%;
     padding: 10px;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 
 }
-
-.col16 {
+.b-abuelos-m>.col8 {
     float: left;
-    width: 6.25%;
+    padding: 10px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+}
+.t-paternos{
+    width: 50%;
+}
+ .t-paternos .col16{
+    float: left;
+    width: 74px;
+    padding: 10px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+}
+.t-maternos{
+    width: 50%;
+}
+ .t-maternos .col16{
+    float: left;
+    width: 75px;
     padding: 10px;
     display: table-cell;
     text-align: center;
@@ -219,9 +174,8 @@ header label {
 }
 
 
-
-footer {
-    margin-top: 200px;
+.card{
+    background-color: transparent !important;
 }
 
 @media all and (max-width: 1100px) {
@@ -245,7 +199,7 @@ footer {
 
     }
 
-    .col16>.mini-card>.card-img2 {
+  .col16>.mini-card>.card-img2 {
         width: 54px !important;
         height: 45px !important;
 
@@ -264,82 +218,4 @@ footer {
     }
 }
 
-@media all and (max-width: 1100px) {
 
-    /* body {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-
-    } */
-    .fa-bars {
-        font-size: 50px;
-        margin-right: 30px;
-        z-index: 10;
-
-    }
-    header{
-        margin-top:20px;
-    }
-
-    header label {
-        display: block;
-        padding-top: 16px;
-        padding-right: 16px;
-        transition: all 0.4s ease;
-    }
-
-    .main-menu {
-        position: absolute;
-        top: 100px;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: translateX(5%);
-        transition: all 0.3s;
-        z-index: 5;
-
-    }
-
-
-
-    .main-menu ul li a {
-        padding-right: 0px;
-        font-size: 200%;
-        padding-bottom: 50px;
-        padding-top: 50px;
-        font-weight: 700;
-        border-top-width: 3px;
-        border-top-color:rgb(223, 223, 223);
-        border-top-style: solid;
-    }
-
-    .main-menu ul {
-        padding: 0px;
-        text-align: left;
-        flex-direction: column;
-        display: block;
-        height: 100%;
-        background-color: #ffffff;
-    }
-
-    .main-menu ul li:hover ul {
-        display: none;
-        position: static;
-    }
-
-    .main-menu a i {
-        position: absolute;
-        right: 16px;
-        line-height: 32px;
-    }
-
-    #btn-menu:checked~.main-menu {
-        transform: translateX(+100%);
-        height: 0;
-        overflow: hidden;
-        transition: all 0.3s;
-
-    }
-
-  
-}

@@ -5,16 +5,54 @@
 }
 
 .top {
-    margin-top: 110px;
+    margin-top: 21px;
 }
 
 .link {
     color: #82ba3d;
 }
-.thumbnail{
+
+.card{
+    background-color: transparent !important;
+}
+
+.thumbnail {
     width: 50px;
     height: 50px;
     object-fit: cover;
+
+}
+
+.bisa-mat {
+    margin-top: 100px !important;
+}
+
+.m-maternas {
+    margin-top: 84px !important;
+}
+
+.bisa-img {
+    margin: 9%;
+    width: 132px;
+    height: 99px;
+    margin-left: 55px;
+}
+
+.pb-90{
+padding-bottom: 90px !important;
+}
+
+.card-img-top {
+    object-fit: cover;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.m-padre .card-body .card-img-top {
+    width: 320px !important;
+    height: 241px !important;
 
 }
 
@@ -39,6 +77,7 @@
     width: 33.33%;
 }
 
+
 /* Clear floats after the columns */
 .row:after {
     content: "";
@@ -56,37 +95,52 @@
 }
 
 .bg-claro {
-    margin-top: -4rem;
     background-color: #f7f7f7;
+    margin-top: 21px !important;
 }
+.mb-250{
+    margin-bottom: 250px !important;
+}
+
+.bisa-pat{
+    margin-top: 42px !important;
+}
+
 
 .m-padre {
-    width: 21rem;
     margin-top: 93px !important;
+    width: 22rem; 
+    margin:auto;
 }
 
-.m-maternas {
-    margin-top: 162px !important;
-
-}
 
 .m-madre {
-    margin-top: 215px !important;
+    margin-top: 150px !important;
 }
-.card{
-    border:0;
+
+.card {
+    border: 0;
 }
+
 .quit {
     text-align: center;
     margin-bottom: 0px;
 }
-.abuelos-img{
-    width: 120%;
+
+.abuelos-img {
+    width: 250px;
+    height: 184px;
+}
+.bisa {
+    width: 389px;
+    height: 115px;
+    margin: auto;
 }
 
-.bisa-mat {
-    margin-top: 130px !important;
+.bisa-main{
+    margin-top: 25px !important;
 }
+
 
 @media all and (max-width: 1100px) {
 
@@ -119,14 +173,17 @@
 
     }
 
+
     .bisa {
-        width: 80% !important;
-
-
+        width: 322px;
+        height: 121px;
+        margin: auto;
     }
 
+
+
     .bisa-mat {
-        margin-top: 52px !important;
+        margin-top: 50px !important;
     }
 
     .bisa-img {
