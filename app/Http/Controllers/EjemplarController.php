@@ -239,9 +239,10 @@ class EjemplarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $req, $id)
     {
         $page = new pagesController();
+
         $id = Ejemplar::where('slug', '=', $id)
             ->firstOrFail();
         $id = $id->id;
@@ -263,10 +264,19 @@ class EjemplarController extends Controller
             "Dueños" => $props,
         ];
 
+        $page = $page->show($req);
+        $ordenCard = $page["orden"];
+        $orden = [];
+        foreach ($ordenCard as $key => $value) {
+            $propiedad = $value->columnName;
+            $valor = $ejemplar[0]->$propiedad;
+            $orden[$value->publicName] = $valor;
+
+        }
+
         $abuelos = $this->getGenerations($id);
 
-        $page = $page->show();
-        return view('public.ejemplar', compact('details', 'abuelos', 'page'));
+        return view('public.ejemplar', compact('details', 'abuelos', 'page', 'orden'));
 
     }
 
@@ -287,6 +297,8 @@ class EjemplarController extends Controller
 
         $ejemplar[0]->medias = $media;
         return $ejemplar;
+        # code...
+
     }
 
     public function getParents($id)
@@ -386,66 +398,85 @@ class EjemplarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $media = new Media();
-        $ejemplar = new Ejemplar();
-        $ejemplar->where('id', $id)
-            ->update(
-                ['name' => $request['name'],
-                    'birthday' => $request['date'],
-                    'color' => $request['color'],
-                    'genre' => $request['sex'],
-                    'type_register' => $request['typeRegister'],
-                    'location' => $request['location'],
-                    'birth_location' => $request['birthLocation']]
-            );
-        $condicion = $request->input('id_macho');
 
-        for ($i = 0; $i < 2; $i++) {
-            if ($request->input('id_macho') != "" or $request->input('id_hembra') != "") {
-                $foo = $condicion != "" ? [1, 'id_macho'] : [2, 'id_hembra'];
-                $condicion = "";
+        $newFields=[];
+        $fieldsJson=[];
 
-                $relation = new relation();
+        for ($i = 0; $i < 8; $i++) {
+            if (isset($request["campo" . $i])) {
+                $fieldName = $request["campo" . $i];
+                $value = $request["valor" . $i];
 
-                $relation->where([
-                    ['id_relation', '=', $foo[0]],
-                    ['hijo_id', '=', $id],
-                ])
-                    ->update(
-                        ['id_relation' => $foo[0],
-                            'padre_id' => $request->input($foo[1]),
-                        ]
-                    );
+                $newFields[$fieldName]=$value;
+
             }
         }
 
-        if (empty($request->input('firstName'))) {
-        } else {
-            $proper = new Owner();
-            $proper->name = $request->input('firstName');
-            $proper->last_name = $request->input('lastName');
-            $proper->save();
+        foreach ($newFields as $key => $value) {
+            array_push($fieldsJson,$key);
         }
+        return $fieldsJson;
+        // $media = new Media();
+        // $ejemplar = new Ejemplar();
+        // $ejemplar->where('id', $id)
+        //     ->update(
+        //         ['name' => $request['name'],
+        //             'birthday' => $request['date'],
+        //             'color' => $request['color'],
+        //             'genre' => $request['sex'],
+        //             'type_register' => $request['typeRegister'],
+        //             'location' => $request['location'],
+        //             'birth_location' => $request['birthLocation']]
+        //     );
 
-        if (empty($request->input('firstNameSeeder'))) {
-        } else {
-            $breeder = new breeder();
-            $breeder->name = $request->input('firstNameSeeder');
-            $breeder->last_name = $request->input('LastNameSeeder');
-            $breeder->web_Page = $request->input('webpage');
-            $breeder->save();
+        // $condicion = $request->input('id_macho');
 
-        }
+        // for ($i = 0; $i < 2; $i++) {
+        //     if ($request->input('id_macho') != "" or $request->input('id_hembra') != "") {
+        //         $foo = $condicion != "" ? [1, 'id_macho'] : [2, 'id_hembra'];
+        //         $condicion = "";
 
-        $breeder = breeder::all();
-        $owner = Owner::all();
-        $id = Ejemplar::all();
+        //         $relation = new relation();
 
-        $ejemplar->owner()->associate($owner->last());
-        $ejemplar->breeder()->associate($breeder->last());
-        $ejemplar->save();
+        //         $relation->where([
+        //             ['id_relation', '=', $foo[0]],
+        //             ['hijo_id', '=', $id],
+        //         ])
+        //             ->update(
+        //                 ['id_relation' => $foo[0],
+        //                     'padre_id' => $request->input($foo[1]),
+        //                 ]
+        //             );
+        //     }
+        // }
 
-        $this->saveMedia($request, $id);
+        // if (empty($request->input('firstName'))) {
+        // } else {
+        //     $proper = new Owner();
+        //     $proper->name = $request->input('firstName');
+        //     $proper->last_name = $request->input('lastName');
+        //     $proper->save();
+        // }
+
+        // if (empty($request->input('firstNameSeeder'))) {
+        // } else {
+        //     $breeder = new breeder();
+        //     $breeder->name = $request->input('firstNameSeeder');
+        //     $breeder->last_name = $request->input('LastNameSeeder');
+        //     $breeder->web_Page = $request->input('webpage');
+        //     $breeder->save();
+
+        // }
+
+        // $breeder = breeder::all();
+        // $owner = Owner::all();
+        // $id = Ejemplar::all();
+
+        // $ejemplar->owner()->associate($owner->last());
+        // $ejemplar->breeder()->associate($breeder->last());
+        // $ejemplar->save();
+
+        // $this->saveMedia($request, $id);
     }
 
     /**

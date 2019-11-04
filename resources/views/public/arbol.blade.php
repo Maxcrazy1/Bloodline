@@ -9,7 +9,7 @@
     <script src="{{ URL::asset('js/core/jquery.min.js') }}"></script>
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tree.css') }}" rel="stylesheet">
-    <link href="{{$urlFont}}" rel="stylesheet"> 
+    <link href="{{$datos["urlFont"]}}" rel="stylesheet"> 
 
 
 
@@ -19,26 +19,12 @@
 </head>
 
 <body>
-    <!-- Navigation -->
-    <header>
-        <input type="checkbox" id="btn-menu" />
-        <label for="btn-menu"><i class="fa fa-bars" style="color: #B7B9C4"></i></label>
-        <nav class="main-menu">
-            <ul>
-                <li> <a href="#" class="active"> Inicio</a></li>
-                <li class="submenu"><a href="#">American Bully</i></a>
-                </li>
-                <li class="submenu"><a href="#">Bulldog Francés</a>
-                </li>
-                <li><a href="#">Bulldog Inglés</a></li>
-                <li><a href="#">Web principal</a></li>
-            </ul>
-        </nav>
-    </header>
+    @include('layouts.menu')
+
 
     <div class="img-top">
-        @if ($media[0]->src!="")
-        <img class="imagen" src="{{URL::asset('/media/pages/'.$media[0]->src)}}" alt="" />
+        @if ($datos["media"][0]->src!="")
+        <img class="imagen" src="{{URL::asset('/media/pages/'.$datos["media"][0]->src)}}" alt="" />
         @else
         <img class="imagen" style="background-color:#dbdbdb;" alt="" />
         @endif
@@ -56,15 +42,15 @@
                 <div class="row">
                     <div class="col2">
                         <div class="card card2 mt-5" style="width: 25rem; ">
-                            @if (count($family["Ejemplar Macho"])>0)
+                            @if (count($datos["family"]["Ejemplar Macho"])>0)
 
                             <h4 class="card-title padres">
-                                {{ $family["Ejemplar Macho"][0]->name}}
+                                {{ $datos["family"]["Ejemplar Macho"][0]->name}}
                             </h4>
-                            <a href="/Ejemplar/{{$family["Ejemplar Macho"][0]->slug}}">
+                            <a href="/Ejemplar/{{$datos["family"]["Ejemplar Macho"][0]->slug}}">
 
-                                @if (count($family["Ejemplar Macho"][0]->medias)>0)
-                                <img src="{{URL::asset('/media/'.$family["Ejemplar Macho"][0]->medias[0]->src)}}"
+                                @if (count($datos["family"]["Ejemplar Macho"][0]->medias)>0)
+                                <img src="{{URL::asset('/media/'.$datos["family"]["Ejemplar Macho"][0]->medias[0]->src)}}"
                                     class="card-img">
                                 @else
 
@@ -73,8 +59,8 @@
                             </a>
 
                             <div class="card-body padre-s">
-                                <p class="quit">{{$family["Ejemplar Macho"][0]->raza}}</p>
-                                <p class="quit">{{$family["Ejemplar Macho"][0]->genre}}</p>
+                                <p class="quit">{{$datos["family"]["Ejemplar Macho"][0]->raza}}</p>
+                                <p class="quit">{{$datos["family"]["Ejemplar Macho"][0]->genre}}</p>
                             </div>
 
                             @else
@@ -91,23 +77,23 @@
 
                     <div class="col2">
                         <div class="card card2 mt-5" style="width: 25rem; ">
-                            @if (count($family["Ejemplar Hembra"])>0)
+                            @if (count($datos["family"]["Ejemplar Hembra"])>0)
 
                             <h4 class="card-title padres">
-                                {{$family["Ejemplar Hembra"][0]->name}}
+                                {{$datos["family"]["Ejemplar Hembra"][0]->name}}
                             </h4>
 
-                            <a href="/Ejemplar/{{$family["Ejemplar Hembra"][0]->slug}}">
-                                @if (count($family["Ejemplar Hembra"][0]->medias)>0)
-                                <img src="{{URL::asset('/media/'.$family["Ejemplar Hembra"][0]->medias[0]->src)}}"
+                            <a href="/Ejemplar/{{$datos["family"]["Ejemplar Hembra"][0]->slug}}">
+                                @if (count($datos["family"]["Ejemplar Hembra"][0]->medias)>0)
+                                <img src="{{URL::asset('/media/'.$datos["family"]["Ejemplar Hembra"][0]->medias[0]->src)}}"
                                     class="card-img" alt="...">
                                 @else
                                 <img src="{{URL::asset('/media/silueta.png')}}" class="card-img" alt="...">
                                 @endif
                             </a>
                             <div class="card-body padre-s">
-                                <p class="quit">{{$family["Ejemplar Hembra"][0]->raza}}</p>
-                                <p class="quit">{{$family["Ejemplar Hembra"][0]->genre}}</p>
+                                <p class="quit">{{$datos["family"]["Ejemplar Hembra"][0]->raza}}</p>
+                                <p class="quit">{{$datos["family"]["Ejemplar Hembra"][0]->genre}}</p>
                             </div>
                             @else
                             <h5 class="card-title text-center">No existen registros</h5>
@@ -135,14 +121,14 @@
                     <div class="col4">
 
                         <div class="card card2 mt-3 card-der" style="width: 14rem; ">
-                            @if (count($family["Macho"][0]["Segunda generacion"])>0)
+                            @if (count($datos["family"]["Macho"][0]["Segunda generacion"])>0)
                             <h4 class="card-title abuelos">
-                                {{ $family["Macho"][0]["Segunda generacion"][0]->name}}
+                                {{ $datos["family"]["Macho"][0]["Segunda generacion"][0]->name}}
                             </h4>
 
-                            <a href="/Ejemplar/{{$family["Macho"][0]["Segunda generacion"][0]->slug}}">
-                                @if (count($family["Macho"][0]["Segunda generacion"][0]->medias)>0)
-                                <img src="{{URL::asset('/media/'.$family["Macho"][0]["Segunda generacion"][0]->medias[0]->src)}}"
+                            <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Segunda generacion"][0]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Segunda generacion"][0]->medias)>0)
+                                <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Segunda generacion"][0]->medias[0]->src)}}"
                                     class="card-img2" alt="...">
                                 @else
                                 <img src="{{URL::asset('/media/silueta.png')}}" class="card-img" alt="...">
@@ -164,15 +150,15 @@
                     <div class="col4">
 
                         <div class="card card2 mt-3 card-der" style="width: 14rem; ">
-                            @if (count($family["Macho"][0]["Segunda generacion"])>1)
+                            @if (count($datos["family"]["Macho"][0]["Segunda generacion"])>1)
                             <h4 class="card-title abuelos">
-                                {{ $family["Macho"][0]["Segunda generacion"][1]->name}}
+                                {{ $datos["family"]["Macho"][0]["Segunda generacion"][1]->name}}
                             </h4>
 
-                            <a href="/Ejemplar/{{$family["Macho"][0]["Segunda generacion"][1]->slug}}">
-                                @if (count($family["Macho"][0]["Segunda generacion"][1]->medias)>0)
+                            <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Segunda generacion"][1]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Segunda generacion"][1]->medias)>0)
 
-                                <img src="{{URL::asset('/media/'.$family["Macho"][0]["Segunda generacion"][1]->medias[0]->src)}}"
+                                <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Segunda generacion"][1]->medias[0]->src)}}"
                                     class="card-img2" alt="...">
                                 @else
                                 <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -193,15 +179,15 @@
                     <div class="col4">
 
                         <div class="card card2 mt-3 card-der" style="width: 14rem; ">
-                            @if (count($family["Hembra"][0]["Segunda generacion"])>0)
+                            @if (count($datos["family"]["Hembra"][0]["Segunda generacion"])>0)
                             <h4 class="card-title abuelos">
-                                {{ $family["Hembra"][0]["Segunda generacion"][0]->name}}
+                                {{ $datos["family"]["Hembra"][0]["Segunda generacion"][0]->name}}
                             </h4>
 
-                            <a href="/Ejemplar/{{$family["Hembra"][0]["Segunda generacion"][0]->slug}}">
-                                @if (count($family["Hembra"][0]["Segunda generacion"][0]->medias)>0)
+                            <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Segunda generacion"][0]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Segunda generacion"][0]->medias)>0)
 
-                                <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Segunda generacion"][0]->medias[0]->src)}}"
+                                <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Segunda generacion"][0]->medias[0]->src)}}"
                                     class="card-img2" alt="...">
                                 @else
                                 <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -222,15 +208,15 @@
                     <div class="col4">
 
                         <div class="card card2 mt-3 card-der" style="width: 14rem; ">
-                            @if (count($family["Hembra"][0]["Segunda generacion"])>1)
+                            @if (count($datos["family"]["Hembra"][0]["Segunda generacion"])>1)
                             <h4 class="card-title abuelos">
-                                {{ $family["Hembra"][0]["Segunda generacion"][1]->name}}
+                                {{ $datos["family"]["Hembra"][0]["Segunda generacion"][1]->name}}
                             </h4>
 
-                            <a href="/Ejemplar/{{$family["Hembra"][0]["Segunda generacion"][1]->slug}}">
-                                @if (count($family["Hembra"][0]["Segunda generacion"][1]->medias)>0)
+                            <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Segunda generacion"][1]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Segunda generacion"][1]->medias)>0)
 
-                                <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Segunda generacion"][1]->medias[0]->src)}}"
+                                <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Segunda generacion"][1]->medias[0]->src)}}"
                                     class="card-img2" alt="...">
                                 @else
                                 <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -264,16 +250,16 @@
                     <div class="b-abuelos-p">
                         <div class="col8">
 
-                            @if (count($family["Macho"][0]["Tercera generacion"])>0)
+                            @if (count($datos["family"]["Macho"][0]["Tercera generacion"])>0)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Macho"][0]["Tercera generacion"][0]->name}}
+                                    {{$datos["family"]["Macho"][0]["Tercera generacion"][0]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Tercera generacion"][0]->slug}}">
-                                    @if (count($family["Macho"][0]["Tercera generacion"][0]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Tercera generacion"][0]->slug}}">
+                                    @if (count($datos["family"]["Macho"][0]["Tercera generacion"][0]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Tercera generacion"][0]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Tercera generacion"][0]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -296,16 +282,16 @@
 
                         <div class="col8">
 
-                            @if (count($family["Macho"][0]["Tercera generacion"])>1)
+                            @if (count($datos["family"]["Macho"][0]["Tercera generacion"])>1)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Macho"][0]["Tercera generacion"][1]->name}}
+                                    {{$datos["family"]["Macho"][0]["Tercera generacion"][1]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Tercera generacion"][1]->slug}}">
-                                    @if (count($family["Macho"][0]["Tercera generacion"][1]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Tercera generacion"][1]->slug}}">
+                                    @if (count($datos["family"]["Macho"][0]["Tercera generacion"][1]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Tercera generacion"][1]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Tercera generacion"][1]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -327,16 +313,16 @@
 
                         <div class="col8">
 
-                            @if (count($family["Macho"][0]["Tercera generacion"])>2)
+                            @if (count($datos["family"]["Macho"][0]["Tercera generacion"])>2)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Macho"][0]["Tercera generacion"][2]->name}}
+                                    {{$datos["family"]["Macho"][0]["Tercera generacion"][2]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Tercera generacion"][2]->slug}}">
-                                    @if (count($family["Macho"][0]["Tercera generacion"][2]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Tercera generacion"][2]->slug}}">
+                                    @if (count($datos["family"]["Macho"][0]["Tercera generacion"][2]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Tercera generacion"][2]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Tercera generacion"][2]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -359,16 +345,16 @@
 
                         <div class="col8">
 
-                            @if (count($family["Macho"][0]["Tercera generacion"])>3)
+                            @if (count($datos["family"]["Macho"][0]["Tercera generacion"])>3)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Macho"][0]["Tercera generacion"][3]->name}}
+                                    {{$datos["family"]["Macho"][0]["Tercera generacion"][3]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Tercera generacion"][3]->slug}}">
-                                    @if (count($family["Macho"][0]["Tercera generacion"][3]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Tercera generacion"][3]->slug}}">
+                                    @if (count($datos["family"]["Macho"][0]["Tercera generacion"][3]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Tercera generacion"][3]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Tercera generacion"][3]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -393,16 +379,16 @@
                     <div class="b-abuelos-m">
                         <div class="col8">
 
-                            @if (count($family["Hembra"][0]["Tercera generacion"])>0)
+                            @if (count($datos["family"]["Hembra"][0]["Tercera generacion"])>0)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Hembra"][0]["Tercera generacion"][0]->name}}
+                                    {{$datos["family"]["Hembra"][0]["Tercera generacion"][0]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Tercera generacion"][0]->slug}}">
-                                    @if (count($family["Hembra"][0]["Tercera generacion"][0]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Tercera generacion"][0]->slug}}">
+                                    @if (count($datos["family"]["Hembra"][0]["Tercera generacion"][0]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Tercera generacion"][0]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Tercera generacion"][0]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -424,16 +410,16 @@
 
                         <div class="col8">
 
-                            @if (count($family["Hembra"][0]["Tercera generacion"])>1)
+                            @if (count($datos["family"]["Hembra"][0]["Tercera generacion"])>1)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Hembra"][0]["Tercera generacion"][1]->name}}
+                                    {{$datos["family"]["Hembra"][0]["Tercera generacion"][1]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Tercera generacion"][1]->slug}}">
-                                    @if (count($family["Hembra"][0]["Tercera generacion"][1]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Tercera generacion"][1]->slug}}">
+                                    @if (count($datos["family"]["Hembra"][0]["Tercera generacion"][1]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Tercera generacion"][1]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Tercera generacion"][1]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -455,16 +441,16 @@
 
                         <div class="col8">
 
-                            @if (count($family["Hembra"][0]["Tercera generacion"])>2)
+                            @if (count($datos["family"]["Hembra"][0]["Tercera generacion"])>2)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Hembra"][0]["Tercera generacion"][2]->name}}
+                                    {{$datos["family"]["Hembra"][0]["Tercera generacion"][2]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Tercera generacion"][2]->slug}}">
-                                    @if (count($family["Hembra"][0]["Tercera generacion"][2]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Tercera generacion"][2]->slug}}">
+                                    @if (count($datos["family"]["Hembra"][0]["Tercera generacion"][2]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Tercera generacion"][2]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Tercera generacion"][2]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -486,16 +472,16 @@
 
                         <div class="col8">
 
-                            @if (count($family["Hembra"][0]["Tercera generacion"])>3)
+                            @if (count($datos["family"]["Hembra"][0]["Tercera generacion"])>3)
                             <div class="card card2 mt-3 card-der" style="width: 8rem; ">
                                 <h4 class="card-title b-abuelos">
-                                    {{$family["Hembra"][0]["Tercera generacion"][3]->name}}
+                                    {{$datos["family"]["Hembra"][0]["Tercera generacion"][3]->name}}
                                 </h4>
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Tercera generacion"][3]->slug}}">
-                                    @if (count($family["Hembra"][0]["Tercera generacion"][3]->medias)>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Tercera generacion"][3]->slug}}">
+                                    @if (count($datos["family"]["Hembra"][0]["Tercera generacion"][3]->medias)>0)
 
 
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Tercera generacion"][3]->medias[0]->src)}}"
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Tercera generacion"][3]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
                                     @else
                                     <img src="{{URL::asset('/media/silueta.png')}}" class="card-img2" alt="...">
@@ -531,11 +517,11 @@
                     <div class="t-paternos" style="padding-bottom:80px;">
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>0)
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>0)
                                 <a href="">
-                                    $famil/Ejemplar/{{y["Macho"][0]["Cuarta generacion"][0]->medslug}}
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][0]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][0]->medias[0]->src)}}"
+                                    $datos["famil"]/Ejemplar/{{y["Macho"][0]["Cuarta generacion"][0]->medslug}}
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][0]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][0]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -552,11 +538,11 @@
 
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>1)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][1]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>1)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][1]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][1]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][1]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][1]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][1]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -571,11 +557,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>2)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][2]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>2)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][2]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][2]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][2]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][2]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][2]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -590,11 +576,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>3)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][3]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>3)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][3]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][3]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][3]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][3]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][3]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -609,11 +595,11 @@
 
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>4)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][4]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>4)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][4]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][4]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][4]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][4]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][4]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -627,11 +613,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>5)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][5]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>5)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][5]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][5]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][5]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][5]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][5]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -645,11 +631,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>6)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][6]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>6)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][6]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][6]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][6]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][6]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][6]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -663,11 +649,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Macho"][0]["Cuarta generacion"])>7)
-                                <a href="/Ejemplar/{{$family["Macho"][0]["Cuarta generacion"][7]->slug}}">
+                                @if (count($datos["family"]["Macho"][0]["Cuarta generacion"])>7)
+                                <a href="/Ejemplar/{{$datos["family"]["Macho"][0]["Cuarta generacion"][7]->slug}}">
 
-                                    @if (count($family["Macho"][0]["Cuarta generacion"][7]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Macho"][0]["Cuarta generacion"][7]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Macho"][0]["Cuarta generacion"][7]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Macho"][0]["Cuarta generacion"][7]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -684,11 +670,11 @@
                     <div class="t-maternos">
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>0)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][0]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>0)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][0]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][0]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][0]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][0]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][0]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -704,11 +690,11 @@
 
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>1)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][1]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>1)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][1]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][1]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][1]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][1]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][1]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -722,11 +708,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>2)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][2]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>2)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][2]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][2]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][2]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][2]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][2]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -740,11 +726,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>3)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][3]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>3)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][3]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][3]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][3]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][3]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][3]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -759,11 +745,11 @@
 
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>4)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][4]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>4)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][4]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][4]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][4]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][4]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][4]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -777,11 +763,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>5)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][5]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>5)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][5]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][5]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][5]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][5]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][5]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -795,11 +781,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>6)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][6]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>6)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][6]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][6]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][6]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][6]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][6]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else
@@ -813,11 +799,11 @@
                         </div>
                         <div class="col16">
                             <div class="mini-card" style="width: 4rem; ">
-                                @if (count($family["Hembra"][0]["Cuarta generacion"])>7)
-                                <a href="/Ejemplar/{{$family["Hembra"][0]["Cuarta generacion"][7]->slug}}">
+                                @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"])>7)
+                                <a href="/Ejemplar/{{$datos["family"]["Hembra"][0]["Cuarta generacion"][7]->slug}}">
 
-                                    @if (count($family["Hembra"][0]["Cuarta generacion"][7]->medias)>0)
-                                    <img src="{{URL::asset('/media/'.$family["Hembra"][0]["Cuarta generacion"][7]->medias[0]->src)}}"
+                                    @if (count($datos["family"]["Hembra"][0]["Cuarta generacion"][7]->medias)>0)
+                                    <img src="{{URL::asset('/media/'.$datos["family"]["Hembra"][0]["Cuarta generacion"][7]->medias[0]->src)}}"
                                         class="card-img2" alt="...">
 
                                     @else

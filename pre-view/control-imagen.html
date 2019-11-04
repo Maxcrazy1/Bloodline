@@ -2,174 +2,76 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <style>
-        .items>tr:hover {
-            background-color: #9FC7F0;
-        }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
 
-        .card {
-            margin: 0 auto !important;
-            /* Added */
-            float: none;
-            /* Added */
-            margin-bottom: 10px;
-            /* Added */
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+    <!-- 'classic' theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css" />
+    <!-- 'monolith' theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
+    <!-- 'nano' theme -->
 
-    </style>
+
+
 </head>
 
 <body>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-genre" data-toggle="modal" data-target="#create" id="btn-macho">
-        Launch demo modal
-    </button>
-    <button type="button" class="btn btn-primary btn-genre" data-toggle="modal" data-target="#create" id="btn-hembra">
-        Launch demo modal
-    </button>
+
     <div class="container">
-        <div class="row text-center">
-            <div class="col-md-6">
-                <div class="card m-5 d-none" style="width: 18rem; border:0px;" id="card">
-                    <img src="https://source.unsplash.com/random/300x300" class="card-img-top"
-                        style="border-radius:155px;" alt="...">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Card title</h5>
-                        <p>Macho</p>
-                        <p>3 Años de edad</p>
+        <div class="row" id="camposEjemplar">
 
-                        <a href="#" class="btn btn-danger btn-fill">Remover</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card m-5 d-none" style="width: 18rem; border:0px;" id="card-hembra">
-                    <img src="https://source.unsplash.com/random/300x300" class="card-img-top"
-                        style="border-radius:155px;" alt="...">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Card title</h5>
-                        <p>Macho</p>
-                        <p>3 Años de edad</p>
-
-                        <a href="#" class="btn btn-danger btn-fill">Remover</a>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header pt-0">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span>×</span>
-                    </button>
-                    <h4>Seleccione al ejemplar correspondiente</h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre del ejemplar</th>
-                                <th scope="col">Fecha de nacimiento</th>
-                                <th scope="col">Color</th>
-                                <th scope="col">Genero</th>
-                                <th scope="col">Tipo de registro</th>
-                            </tr>
-                        </thead>
-                        <tbody class="items">
-                            <tr>
-                                <td>items 1</td>
-                                <td>items 2</td>
-                                <td>items 3</td>
-                                <td>items 4</td>
-                                <td>items 5</td>
-                                <td>Item 6</td>
-                            </tr>
-                            <tr>
-                                <td>items 3</td>
-                                <td>items 2</td>
-                                <td>items 3</td>
-                                <td>items 4</td>
-                                <td>items 5</td>
-                                <td>Item 6</td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary btn-fill" value="Seleccionar" id="btn">
-                </div>
-            </div>
-        </div>
+        <a href="#" onclick="AgregarCampos();">Agregar Campos</a>
     </div>
 
-
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
+    </script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js">
+    </script>
 
     <script>
-        $(document).ready(function () {
-            var foo, attr;
-            $(".btn-genre").click(function () {
-                attr = $(this).attr("id");
-            })
-            $("#btnPadre").click(function () {
-                $.ajax({
-                    url: "/ejemplars",
-                    type: "GET",
-                }).done(function (response) {
-                    response.forEach(element => {
-                        $("#items").append(
-                            `<tr><td>${element.id}</td>` +
-                            `<td>${element.name}</td>` +
-                            `<td>${element.birthday}</td>` +
-                            `<td></td>` +
-                            `<td>${element.color}</td>` +
-                            `<td>${element.type_register}</td></tr>`
-                        );
+        var nextinput = 0;
 
-                    });
-                });
-            });
+        function AgregarCampos() {
+            nextinput++;
+            campo =
+                /*html*/
+                `<div class="col-6">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Nombre del campo</label>
 
-            $(".items").delegate('tr', 'click', function () {
-                $('.items tr').prop('style', 'background-color:#fffff;');
-                $(this).prop('style', 'background-color:#72ACE9;');
-                foo = $(this).find('td').eq(0).text();
-            });
-            $("#btn").click(function () {
-                let tag = attr == 'btn-macho' ? '#card' : '#card-hembra';
-                if (typeof foo !== 'undefined') {
-                    $(tag).prop('class', 'card m-5 d-block ')
-                    $(".close").trigger("click");
-                    $(tag + '> .card-body > .card-title').text(foo);
+                    <input type="text" class="form-control" name="campo${nextinput}" placeholder="Nombre del campo">
+                </div>
+            </div>
+            
+            <div class="col-6">
+                <label for="exampleFormControlInput1">Valor del campo</label>
 
-                } else {
-                    alert('Seleccione alguna opción')
-                }
+                <div class="form-group"><input type="text" class="form-control" name="valor${nextinput}"
+                        placeholder="Valor del campo">
+                </div>
+            </div>`;
 
-
-            })
-        });
+            $("#camposEjemplar").append(campo);
+        }
 
     </script>
 </body>

@@ -1,27 +1,25 @@
 @extends('layouts.app')
 
-@section('title',$page[0]->name)
+@section('title',$datos["page"][0]->name)
 
 @push('styles')
-<link href="{{$urlFont}}" rel="stylesheet">
-<style>
+<link href="{{$datos["urlFont"]}}" rel="stylesheet">
 
-    h2, p{
-        color: {{$page[0]->color_font}};
-        font-size:{{$page[0]->font_size}}px !important;   
-    }
-    #header {
-        font-family: {{$font}};
-        
-    }
+<style>
+#header{
+    margin-top: 0px !important;
+}
+
 </style>
 @endpush
+@include('public.personal-home')
+
 @section('content')
 
 <div id="header">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            @foreach ($media as $item => $key)
+            @foreach ($datos["media"] as $item => $key)
                 @if ($item==0)
                 <li data-target="#carouselExampleIndicators" data-slide-to="{{$item}}" class="active"></li>
                 @else
@@ -32,7 +30,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <!-- Slide One - Set the background image for this slide in the line below -->
-            @foreach ($media as $item => $key)
+            @foreach ($datos["media"] as $item => $key)
             @if ($item==0)
                 <div class="carousel-item active"
                 style="background-image: url({{URL::asset('/media/pages/'.$key->src)}})">
@@ -44,8 +42,6 @@
                 
             </div>
             @endforeach
-            
-
         </div>
 
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

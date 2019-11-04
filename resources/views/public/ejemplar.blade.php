@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Datos del ejemplar - {{$details['Detalles'][0]->name}} </title>
     <script src="{{ asset('js/core/jquery.min.js') }}"></script>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ejemplar.css') }}" rel="stylesheet">
@@ -18,21 +18,8 @@
 </style>
 
 <body>
-    <header>
-        <input type="checkbox" id="btn-menu" />
-        <label for="btn-menu"><i class="fa fa-bars" style="color: #B7B9C4"></i></label>
-        <nav class="main-menu">
-            <ul>
-                <li> <a href="#" class="active"> Inicio</a></li>
-                <li class="submenu"><a href="#">American Bully</i></a>
-                </li>
-                <li class="submenu"><a href="#">Bulldog Francés</a>
-                </li>
-                <li><a href="#">Bulldog Inglés</a></li>
-                <li><a href="#">Web principal</a></li>
-            </ul>
-        </nav>
-    </header>
+    @include('layouts.menu')
+
     <div class="container-fluid bg-image">
 
         <div class="row bg-claro">
@@ -40,53 +27,31 @@
                 <h5 class="text-center marco">
                     Información del ejemplar
                 </h5>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 1</p>
-                    <p class="d-inline pos-l">{{$details['Detalles'][0]->color}} </p>
-                </div>
 
-                <div class="ml-5">
-                    <p class="d-inline">Dato 2</p>
-                    <p class="d-inline pos-l">{{$details['Detalles'][0]->genre}} </p>
-                </div>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 3</p>
-                    <p class="d-inline pos-l">{{$details['Detalles'][0]->type_register}} </p>
-                </div>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 4</p>
-                    <p class="d-inline pos-l">{{$details['Detalles'][0]->location}} </p>
-                </div>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 5</p>
-                    <p class="d-inline pos-l">{{$details['Detalles'][0]->birth_location}} </p>
-                </div>
-                <div class="ml-5 mb-4">
-                    <p class="d-inline">Dato 6</p>
-                    <p class="d-inline pos-l"></p>
-                </div>
-                <h5 class="text-center marco">Información criador</h5>
-                <div class="ml-5 mt-3">
-                    <p class="d-inline">Dato 1</p>
-                    <p class="d-inline pos-l">{{$details["Dueños"]["Criador"]->name}} </p>
-                </div>
+                @foreach ($orden as $key => $value)
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <p>{{$key}}</p>
+                    </div>
+                    <div class="col-6">
 
-                <div class="ml-5">
-                    <p class="d-inline">Dato 2</p>
-                    <p class="d-inline pos-l">{{$details["Dueños"]["Criador"]->last_name}} </p>
+                        <p class="">{{$value}}</p>
+                    </div>
                 </div>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 3</p>
-                    <p class="d-inline pos-l">{{$details["Dueños"]["Criador"]->web_page}} </p>
+                @endforeach
+
+                <h5 class="text-center marco mt-3">Información criador</h5>
+                {{-- @foreach ($orden as $key => $value)
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <p>{{$key}}</p>
+                    </div>
+                    <div class="col-6">
+
+                        <p class="">{{$value}}</p>
+                    </div>
                 </div>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 4</p>
-                    <p class="d-inline pos-l">Texto 1</p>
-                </div>
-                <div class="ml-5">
-                    <p class="d-inline">Dato 5</p>
-                    <p class="d-inline pos-l">Texto 1</p>
-                </div>
+                @endforeach --}}
             </div>
 
             <div class="column text-center ">
@@ -210,10 +175,10 @@
                             @if (count($abuelos[0]["Segunda generacion"][0]->medias)>0)
 
                             <img src="{{URL::asset('/media/'.$abuelos[0]["Segunda generacion"][0]->medias[0]->src)}}"
-                                style="" class="card-img-top rounded" alt="...">
+                             class="card-img-top rounded" alt="...">
 
                             @else
-                            <img src="{{URL::asset('/media/silueta.png')}}" style="" class="card-img-top rounded"
+                            <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded"
                                 alt="...">
                             @endif
                         </a>
@@ -223,7 +188,7 @@
 
                         @else
                         <h5 class="card-title text-center">No existen registros</h5>
-                        <img src="{{URL::asset('/media/no-existe.png')}}" style="" class="card-img-top rounded"
+                        <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded"
                             alt="...">
 
                         <p class="quit mb-5"></p>
@@ -245,7 +210,7 @@
                             <img src="{{URL::asset('/media/'.$abuelos[0]["Segunda generacion"][1]->medias[0]->src)}}"
                                 class="card-img-top rounded" alt="...">
                             @else
-                            <img src="{{URL::asset('/media/silueta.png')}}" style="" class="card-img-top rounded"
+                            <img src="{{URL::asset('/media/silueta.png')}}" class="card-img-top rounded"
                                 alt="...">
                             @endif
                         </a>
@@ -255,7 +220,7 @@
                         @else
                         <h5 class="card-title text-center">No existen registros</h5>
 
-                        <img src="{{URL::asset('/media/no-existe.png')}}" style="" class="card-img-top rounded"
+                        <img src="{{URL::asset('/media/no-existe.png')}}" class="card-img-top rounded"
                             alt="...">
                         @endif
 

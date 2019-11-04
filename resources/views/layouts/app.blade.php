@@ -17,25 +17,7 @@
 </head>
 
 <body>
-        <header>
-                <input type="checkbox" id="btn-menu" />
-                <label for="btn-menu"><i class="fa fa-bars" style="color: #B7B9C4"></i></label>
-                <nav class="main-menu">
-                    <ul>
-                        <li> <a href="/Home" class= "{{ (request()->is('Home')) ? 'link-active' : '' }}"> Inicio</a></li>
-                        <li class= "{{ (request()->is('Ejemplares/American Bully')) ? 'link-active' : '' }}"><a href="{{url('/Ejemplares/American Bully') }}">American Bully</i></a>
-        
-                        </li>
-                        <li class= "{{ (request()->is('Ejemplares/Bulldog Francés')) ? 'link-active' : '' }}"><a  href="{{ url('/Ejemplares/Bulldog Francés') }}">Bulldog Francés</a>
-        
-                        </li>
-                        <li class= "{{ (request()->is('Ejemplares/Bulldog Inglés')) ? 'link-active' : '' }}">
-                            <a href="{{ url('/Ejemplares/Bulldog Inglés') }}">Bulldog Inglés</a></li>
-                        <li>
-                            <a href="href="{{ url('/Ejemplares/') }}"">Web principal</a></li>
-                    </ul>
-                </nav>
-            </header>
+    @include('layouts.menu')
     @yield('content')
 
     @include('public.modal')

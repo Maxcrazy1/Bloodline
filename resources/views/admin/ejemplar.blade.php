@@ -1,6 +1,5 @@
 @extends('layouts.dash')
 @section('title', 'Ejemplar Atomos')
-@include('admin.scripts-drag')
 
 @section('content')
 <div class="row">
@@ -157,6 +156,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
 <script type="text/javascript" src="{{ URL::asset('js/admin/ejemplar.js') }}"></script>
 @endsection
-@include('public.modal')

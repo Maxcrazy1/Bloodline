@@ -45,7 +45,7 @@ Route::get('Ejemplar/{id}/delete', 'EjemplarController@destroy');
 Route::get('/Admin/Ejemplars', 'EjemplarController@getEjemplars');
 
 // Listar ejemplares
-Route::get('/Ejemplares/{raza}', 'pagesController@ejemplares');
+Route::get('/orderColumn/{param}', 'pagesController@order');
 
 
 /* Leer Media */
@@ -55,10 +55,16 @@ Route::get('/Media/{id}', 'EjemplarController@getMedia');
 Route::get('/{name}', 'pagesController@page');
 
 
-Route::get('/pagina/{page}', function ($page) {
-    return view('admin.editar-'.$page);
-});
+Route::get('/editar/{page}', 'pagesController@edit');
 
 Route::get('/Ejemplares/{raza}', 'pagesController@ejemplares');
 
 Route::get('/simulacion/{params}', 'pagesController@simulator');
+
+Route::get('/h/getmediapage', 'pagesController@mediaPage');
+
+
+Route::post('/updatepage', 'pagesController@update');
+
+
+Route::post('/saveOrder', 'pagesController@update');
