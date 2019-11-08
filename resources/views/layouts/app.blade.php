@@ -17,18 +17,14 @@
 </head>
 
 <body>
-    @include('layouts.menu')
+    @include('public.components.menu')
     @yield('content')
 
     @include('public.modal')
 
 
-    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-        <div class="container text-center">
-            <small>&copy; 2019 DERECHOS RESERVADOS. REALIZADO POR <a class="link"
-                    href="https://club.colorfussionkc.com/">COLOR FUSSION</a></small>
-        </div>
-    </footer>
+    @include('public.components.footer')
+    
     
 
 

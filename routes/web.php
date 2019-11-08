@@ -29,14 +29,18 @@ Route::get('/paginas', function () {
     return view('admin.pages');
 });
 
+Route::resource('field', 'fieldController');
+
+Route::post('/field-update/{id}', 'fieldController@update');
+// Route::post('/field-drop/{id}', 'fieldController@destroy');
+
 
 
 /* Crud del ejemplar */
-
 // Crud Resources de ejemplar
 Route::resource('Ejemplar', 'EjemplarController');
 
-Route::get('Ejemplar/{id}/delete', 'EjemplarController@destroy');
+// Route::get('Ejemplar/{id}/delete', 'EjemplarController@destroy');
 
 
 /** Ejemplares */
@@ -49,7 +53,7 @@ Route::get('/orderColumn/{param}', 'pagesController@order');
 
 
 /* Leer Media */
-Route::get('/Media/{id}', 'EjemplarController@getMedia');
+Route::get('/Media/{id}', 'Media@getMedia');
 
 
 Route::get('/{name}', 'pagesController@page');

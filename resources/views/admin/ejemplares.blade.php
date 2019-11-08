@@ -57,14 +57,10 @@
                     </div>
                 </div>
             </div>
-            @if ($notif!="")
-            <div class="alert alert-danger" role="alert">
-                    <strong>Ejemplar Eliminado</strong> La eliminación se ejecutó correctamente
-                  </div>
-            @endif
+            
             
 
-            @include('public.loading')
+            @include('public.components.loading')
             <div id="lista-new">
             </div>
 

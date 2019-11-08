@@ -141,8 +141,12 @@ padding-bottom: 90px !important;
     width: 389px;
     height: 115px;
     margin: auto;
+    
 }
 
+.bisa > .card-body{
+    padding:0px !important;
+}
 .bisa-main{
     margin-top: 25px !important;
 }

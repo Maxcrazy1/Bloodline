@@ -13,6 +13,10 @@ body {
     color: #82ba3d;
 }
 
+.non-border{
+    border: 0;
+}
+
 .navbar {
     background: rgba(255, 255, 255, 0.4);
 }
