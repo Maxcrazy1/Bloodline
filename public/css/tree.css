@@ -30,7 +30,7 @@
 
 }
 
-.col4>.card2>a>.card-img2 {
+.col4>.card2>.size>.card-img2 {
     width: 262px !important;
     height: 192px !important;
     object-fit: cover;

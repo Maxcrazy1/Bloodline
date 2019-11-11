@@ -18,9 +18,10 @@
     <link href="{{ asset('css/alertify.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/themes/default.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/explorer-fas/theme.min.css') }}" media="all" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/light-bootstrap-dashboard.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/light-bootstrap-dashboard.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('icons/css/all.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="{{ asset('css/loading.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
 
     @yield('styles')
@@ -51,12 +52,11 @@
 <!--   Core JS Files   -->
 <script src="{{ asset('js/core/popper.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/core/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/bootstrap-switch.js') }}"></script>
-<script src="{{ asset('js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/bootstrap-switch.min.js') }}"></script>
+<script src="{{ asset('js/light-bootstrap-dashboard.min.js') }}" type="text/javascript"></script>
 
 
 <script src="{{ asset('js/alertify.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
 
 @yield('scripts')
 

@@ -1,75 +1,57 @@
 @extends('layouts.dash')
-@section('title', 'Todas las paginas')
+@section('title', 'Todas las páginas')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Todas las paginas creadas</h4>
-                <div class="form-group">
-                    <label>Insertar nombre de la pagina</label>
-                    <input type="text" class="form-control" placeholder="Editar perros" value="">
-                </div>
-            </div>
-            <div class="card-body table-full-width table-responsive">
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Genero</th>
-                        <th>Dueño</th>
-                        <th>City</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Dakota Rice</td>
-                            <td>$36,738</td>
-                            <td>Niger</td>
-                            <td>Oud-Turnhout</td>
+<div class="card-header">
+    <h4 class="card-title">Todas las páginas creadas</h4>
+</div>
 
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Minerva Hooper</td>
-                            <td>$23,789</td>
-                            <td>Curaçao</td>
-                            <td>Sinaai-Waas</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Sage Rodriguez</td>
-                            <td>$56,142</td>
-                            <td>Netherlands</td>
-                            <td>Baileux</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Philip Chaney</td>
-                            <td>$38,735</td>
-                            <td>Korea, South</td>
-                            <td>Overland Park</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Doris Greene</td>
-                            <td>$63,542</td>
-                            <td>Malawi</td>
-                            <td>Feldkirchen in Kärnten</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Mason Porter</td>
-                            <td>$78,615</td>
-                            <td>Chile</td>
-                            <td>Gloucester</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
+<!-- container -->
+<div class="container">
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Páginas</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody id="iconosPage">
+            <tr>
+                <td><i class="fas fa-home"></i></td>
+                <td>Inicio de BloodLine </td>
+                <th>
+                    <a href="/editar/home" class="fas fa-edit ml-3 c-blue" aria-hidden="true">
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <td><i class="fas fa-paw"></i></td>
+                <td>Datos del ejemplar </td>
+                <th>
+                    <a href="/editar/show" class="fas fa-edit ml-3 c-blue" aria-hidden="true">
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fas fa-tree"></i>
+                </td>
+                <td>Simulador de ejemplar </td>
+                <th>
+                    <a href="/editar/simulador" class="fas fa-edit ml-3 c-blue" aria-hidden="true">
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <td><i class="fas fa-search"></i></td>
+                <td>Buscador de ejemplar </td>
+                <th>
+                    <a href="/editar/listado" class="fas fa-edit ml-3 c-blue" aria-hidden="true">
+                    </a>
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>
 @endsection

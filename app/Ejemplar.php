@@ -14,6 +14,23 @@ class Ejemplar extends Model
         return $this->hasMany('App\relation');
     }
 
+    public function data()
+    {
+        return $this->hasMany('App\data_field');
+    }
+
+    public function media()
+    {
+        return $this->hasMany('App\Media');
+    }
+
+    public function delete() {
+        
+        $this->media()->delete();
+        $this->data()->delete();
+        $this->relations()->delete();
+        parent::delete();
+    }
     /**
      * Scope del genero del ejemplar
      *
@@ -80,26 +97,28 @@ class Ejemplar extends Model
      * @param mixed $id - Id del ejemplar
      * @return Array detalles del ejemplar
      */
-    public function getDetails($id)
+    public function getDetails($slug)
     {
         $datosEje = array();
+
+        $id = $this->getIdEjemplar($slug);
 
         foreach (DB::table('ejemplars')
             ->join('data_fields', 'ejemplars.id', '=', 'data_fields.ejemplar_id')
             ->join('fields', 'data_fields.field_id', '=', 'fields.id')
             ->where('ejemplars.id', '=', $id)
             ->groupBy('data_fields.field_id')
-            ->select('ejemplars.id', 'data_fields.data', 'fields.name','ejemplars.slug')
+            ->select('ejemplars.id', 'data_fields.data', 'fields.name', 'ejemplars.slug')
             ->cursor() as $ejemplar) {
             $datosEje[$ejemplar->name] = $ejemplar->data;
         }
-        
+
         $actionMedia = new Media;
         if (isset($ejemplar)) {
-            $media = $actionMedia->getMedia($ejemplar->id);
+            $media = $actionMedia->getMedia($slug);
             $datosEje['medias'] = $media;
         }
-        
+
         $datosEje['slug'] = $ejemplar->slug;
         return $datosEje;
     }
@@ -115,13 +134,13 @@ class Ejemplar extends Model
 
         return $childs =
         DB::table('ejemplars')
-            ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
-            ->join('data_fields', 'data_fields.ejemplar_id', '=', 'relations.hijo_id')
+            ->join('relations', 'relations.ejemplar_id', '=', 'ejemplars.id')
+            ->join('data_fields', 'data_fields.ejemplar_id', '=', 'relations.ejemplar_id')
             ->where([
                 ['relations.padre_id', '=', $id],
                 ['data_fields.field_id', '=', 1]])
-                ->select('slug','data')
-                ->get();
+            ->select('slug', 'data')
+            ->get();
 
     }
 
@@ -136,7 +155,7 @@ class Ejemplar extends Model
     {
         $parents = DB::table('ejemplars')
             ->select('padre_id')
-            ->join('relations', 'hijo_id', '=', 'ejemplars.id')
+            ->join('relations', 'ejemplar_id', '=', 'ejemplars.id')
             ->where('ejemplars.id', $id);
 
         $childrens = DB::table('ejemplars')
@@ -145,16 +164,16 @@ class Ejemplar extends Model
             })
 
             ->join('relations', 'relations.padre_id', '=', 'padres.padre_id')
-            ->select('hijo_id')
-            ->groupBy('hijo_id');
+            ->select('ejemplar_id')
+            ->groupBy('ejemplar_id');
 
         return $brothers = DB::table('ejemplars')
             ->joinSub($childrens, 'hermanos', function ($join) {
-                $join->on('hermanos.hijo_id', '=', 'ejemplars.id');
+                $join->on('hermanos.ejemplar_id', '=', 'ejemplars.id');
             })
-            ->join('data_fields', 'data_fields.ejemplar_id', '=', 'hermanos.hijo_id')
+            ->join('data_fields', 'data_fields.ejemplar_id', '=', 'hermanos.ejemplar_id')
             ->where([
-                ['hermanos.hijo_id', '<>', $id],
+                ['hermanos.ejemplar_id', '<>', $id],
                 ['data_fields.field_id', '=', 1],
             ])
             ->select('slug', 'data')
@@ -232,8 +251,8 @@ class Ejemplar extends Model
 
         $hijos = DB::table('ejemplars')
             ->select('relations.padre_id', 'relations.id_relation')
-            ->join('relations', 'relations.hijo_id', '=', 'ejemplars.id')
-            ->where('relations.hijo_id', $id);
+            ->join('relations', 'relations.ejemplar_id', '=', 'ejemplars.id')
+            ->where('relations.ejemplar_id', $id);
 
         $parents = DB::table('ejemplars')
             ->joinSub($hijos, 'padres', function ($join) {
@@ -279,10 +298,10 @@ class Ejemplar extends Model
 
             }
             //En caso de solo estar la relación paternal
-            else if (isset($parents[$i]) && count($padres) == 1) {
+            else if (count($padres) == 1) {
 
                 $empty = $this->itemVacio(false);
-                array_push($padres, $item);
+                array_push($padres, $empty);
             }
 
         }
@@ -300,7 +319,7 @@ class Ejemplar extends Model
     {
         $item['slug'] = $param->slug;
         $item['id'] = $param->id;
-        $item['Detalles'] = $this->getDetails($param->id);
+        $item['Detalles'] = $this->getDetails($param->slug);
         return $item;
     }
 
@@ -334,6 +353,24 @@ class Ejemplar extends Model
         }
 
         return $item;
+    }
+
+    /**
+     * Función para extraer especificamente el id del ejemplar
+     *
+     * @param mixed - $slug el slug del ejemplar para extraer la data
+     * @return string - id del ejemplar
+     */
+    public function getIdEjemplar($slug)
+    {
+        $id = DB::table('ejemplars')
+            ->where("slug", '=', $slug)
+            ->select('id')
+            ->limit(1)
+            ->get();
+
+        return $id = $id[0]->id;
+
     }
 
 }

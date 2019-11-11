@@ -11,7 +11,7 @@
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('icons/css/all.min.css') }}">
     <link href="{{$page["urlFont"]}}" rel="stylesheet">
-    @include('public.personal-ejemplar')
+    {{-- @include('public.personal-ejemplar') --}}
 
 </head>
 <style>
@@ -20,7 +20,6 @@
 
 <body>
     @include('public.components.menu')
-
     <div class="container-fluid bg-image">
 
         {{-- Datos del ejemplar --}}

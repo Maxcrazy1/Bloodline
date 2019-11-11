@@ -14,14 +14,14 @@ use Illuminate\Support\Str;
 
 class EjemplarController extends Controller
 {
-    public $notificacion = "";
+    // public $notificacion = "";
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request)
+    public function index(Request $request, $notificacion = false, $admin = false)
     {
         $accionGet = new data_field();
         $listEje = $accionGet->getDataField();
@@ -30,30 +30,51 @@ class EjemplarController extends Controller
             $filterSex = $request->input('sex');
             $filterName = $request->input('name');
             $filterPagination = $request->input('page');
-            // $filter4 = $request->input('filter4');
+            $filterColor = $request->input('filterColor');
+            $filterRaza = $request->input('raza');
+            $perPage = $request->input('perPage');
+            $slug = $request->input('slug');
+            $admin = $request->input('role');
 
+            $perPage = is_null($perPage) ? 10 : $perPage;
             $nroPage = is_null($filterPagination) ? 1 : $filterPagination;
             $Ejefiltrados = $listEje;
 
-            if ($filterSex) {
-                $Ejefiltrados = $accionGet->filtroGenero($Ejefiltrados, 'sex', $filterSex);
-            }
-            if ($filterName) {
-                $Ejefiltrados = $accionGet->filtroGenero($Ejefiltrados, 'name', $filterName);
+            if ($slug) {
+                $Ejefiltrados = $accionGet->filtroArray($listEje, 'slug', $slug, true);
             }
 
-            $ejemplares = $accionGet->paginador($Ejefiltrados, $nroPage, 5);
-            return response()->json(view('public.sublista', compact('ejemplares'))->render());
+            if ($filterSex) {
+                $Ejefiltrados = $accionGet->filtroArray($Ejefiltrados, 'sex', $filterSex);
+            }
+
+            if ($filterName) {
+                $Ejefiltrados = $accionGet->filtroArray($Ejefiltrados, 'name', $filterName);
+            }
+
+            if ($filterColor) {
+                $Ejefiltrados = $accionGet->filtroArray($Ejefiltrados, 'color', $filterColor);
+            }
+
+            if ($filterRaza) {
+                $Ejefiltrados = $accionGet->filtroArray($Ejefiltrados, 'raza', $filterRaza);
+            }
+
+            $ejemplares = $accionGet->paginador($Ejefiltrados, $nroPage, $perPage);
+            return response()->json(view('public.sublista', compact('ejemplares', 'admin'))->render());
         } else {
 
             $razas = DB::table('razas')
                 ->select('raza')
                 ->get();
 
-            $ejemplares = $accionGet->paginador($listEje, null, 8);
+            $ejemplares = $accionGet->paginador($listEje, null, 10);
 
-            // $req = "admin";
-            return view('admin.ejemplares', compact('ejemplares', 'razas'))->render();
+            if (strpos(url()->current(), "Ejemplar")) {
+                $admin = true;
+            }
+
+            return view('admin.ejemplars.ejemplares', compact('ejemplares', 'razas', 'notificacion', 'admin'))->render();
         }
     }
 
@@ -72,7 +93,7 @@ class EjemplarController extends Controller
         $columns = field::all();
 
         // return $columns;
-        return view('admin.ejemplar', compact('razas', 'columns'));
+        return view('admin.ejemplars.ejemplar', compact('razas', 'columns'));
 
     }
 
@@ -113,20 +134,19 @@ class EjemplarController extends Controller
 
         DB::table('data_fields')->insert($datos);
 
-        return $request;
+        return redirect('/Ejemplar')->with('status', 'Ejemplar añadido!');
 
     }
 
     public function simulator($params)
     {
+        $ejemplar = new Ejemplar();
         $family = [];
-        $ids = explode("&", $params);
-        foreach ($ids as $key => $value) {
-            $id = Ejemplar::where('slug', '=', $value)
-                ->firstOrFail();
-            $id = $id->id;
+        $slugs = explode("&", $params);
+        foreach ($slugs as $key => $slug) {
+            $id = $ejemplar->getIdEjemplar($slug);
             $abuelosP = $this->getGenerations($id);
-            $ejemplar = $this->getDetails($id);
+            $ejemplar = $this->getDetails($slug);
 
             $foo = $key == 0 ? "Macho" : "Hembra";
 
@@ -143,17 +163,15 @@ class EjemplarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $req, $id)
+    public function show(Request $req, $slug)
     {
         $orden = [];
         $page = new pagesController();
         $datos = new Ejemplar();
 
-        $id = Ejemplar::where('slug', '=', $id)
-            ->firstOrFail();
-        $id = $id->id;
+        $id = $datos->getIdEjemplar($slug);
 
-        $ejemplar = $datos->getDetails($id);
+        $ejemplar = $datos->getDetails($slug);
         $brothers = $datos->getBrothers($id);
         $hijos = $datos->getChildrens($id);
         $abuelos = $datos->getGenerations($id);
@@ -174,7 +192,6 @@ class EjemplarController extends Controller
             $orden[$value->publicName] = $valor;
 
         }
-
         return view('public.ejemplar', compact('details', 'abuelos', 'page', 'orden'));
 
     }
@@ -185,25 +202,23 @@ class EjemplarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
 
-        // $padres = $this->getParents($id);
+        $datos = new Ejemplar();
+        $id = $datos->getIdEjemplar($slug);
+        $padres = $datos->getParents($id);
+
+        // return $padres;
         foreach (DB::table('razas')->select('raza')->cursor() as $allRazas) {
             $razas[$allRazas->raza] = $allRazas->raza;
         }
 
         $columns = field::all();
 
-        $datos = new Ejemplar();
+        $details = $datos->getDetails($slug);
 
-        $id = Ejemplar::where('slug', '=', $id)
-            ->firstOrFail();
-        $id = $id->id;
-
-        $details = $datos->getDetails($id);
-
-        return view('admin.editar-ejemplar', compact('details', 'razas', 'columns'));
+        return view('admin.ejemplars.editar-ejemplar', compact('details', 'razas', 'columns', 'padres'));
     }
 
     /**
@@ -217,32 +232,42 @@ class EjemplarController extends Controller
     public function update(Request $request, $id)
     {
         $datos = [];
+        $relation = new Relation();
+        $ejemplar = new Ejemplar;
+        $media = new Media;
 
-        $id = DB::table('ejemplars')
-        ->where("slug",'=',$id)
-        ->select('id')
-        ->limit(1)
-        ->get();
-
-    $id=$id[0]->id;
+        $id = $ejemplar->getIdEjemplar($id);
+        $media->saveMedia($request, $id);
 
         // Ciclo for para actualizar los datos
         foreach ($request->request as $key => $value) {
+
+            // Actualizar relaciones condicionada para evitar errores
+            if ($key == "id_macho" || $key == "id_hembra") {
+                if (!is_null($value)) {
+                    $type = $key == "id_macho" ? 1 : 2;
+                    $idPadre = $ejemplar->getIdEjemplar($value);
+                    $relation->updateRelations($type, $idPadre, $id);
+                }
+            }
+
             $idColumn = DB::table('fields')
                 ->where('name', $key)
                 ->value('id');
 
+            /**
+             * Actualizar datos condicionado para evitar errores
+             * se actualiza de la siguiente manera field_id -> nuevoValor -> ID_Ejemplar
+             */
             if (!is_null($idColumn)) {
-            data_field::where('field_id', $idColumn)
-            ->where('ejemplar_id', $id)
-            ->update(['data' => $value]);
-
-      
+                data_field::where('field_id', $idColumn)
+                    ->where('ejemplar_id', $id)
+                    ->update(['data' => $value]);
 
             }
         }
 
-        
+        return redirect('/Ejemplar')->with('status', 'Ejemplar actualizado!');
     }
 
     /**
@@ -253,13 +278,24 @@ class EjemplarController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        // $id = Ejemplar::where('slug', '=', $id)
-        //     ->firstOrFail();
-        // $id = $id->id;
+        $accion = new Ejemplar();
+        $id = $accion->getIdEjemplar($id);
 
-        // Ejemplar::destroy($id);
+        $ejemplar = Ejemplar::find($id);
+        $ejemplar->delete();
 
-        return redirect()->action('EjemplarController@index');
+        relation::where('padre_id', $id)
+            ->update(['padre_id' => 0]);
+
+        $accionGet = new data_field();
+        $ejemplares = $accionGet->getDataField();
+
+        $ejemplares = $accionGet->paginador($ejemplares, null, 10);
+            $admin = true;
+
+            
+
+        return response()->json(view('public.sublista', compact('ejemplares', 'admin'))->render());
 
     }
 

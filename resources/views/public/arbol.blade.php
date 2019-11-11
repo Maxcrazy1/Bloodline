@@ -10,7 +10,7 @@
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tree.css') }}" rel="stylesheet">
     <link href="{{$datos["urlFont"]}}" rel="stylesheet">
-    {{-- @include('public.personal-arbol') --}}
+    @include('public.personal-arbol')
 
     <title>Simulación de ejemplares</title>
 
