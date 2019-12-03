@@ -9,7 +9,7 @@
     <p class="card-category">Cantidad total de ejemplares</p>
 </div>
 <div class="content">
-    <h1 class="text-center">54</h1>
+    <h1 class="text-center">{{$ejemplares}}</h1>
     <div class="card-footer">
 
         <hr>

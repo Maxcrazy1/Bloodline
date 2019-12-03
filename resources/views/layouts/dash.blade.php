@@ -50,8 +50,13 @@
 @include('admin.scripts-drag')
 
 <!--   Core JS Files   -->
+
 <script src="{{ asset('js/core/popper.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/core/popper.min.js.map') }}" type="text/javascript"></script>
 <script src="{{ asset('js/core/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/core/bootstrap.min.js.map') }}" type="text/javascript"></script>
+<script src="{{ asset('js/core/bootstrap-notify.js') }}"></script>
+
 <script src="{{ asset('js/plugins/bootstrap-switch.min.js') }}"></script>
 <script src="{{ asset('js/light-bootstrap-dashboard.min.js') }}" type="text/javascript"></script>
 

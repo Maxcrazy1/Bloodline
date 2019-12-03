@@ -7,8 +7,12 @@
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ URL::asset('js/core/jquery.min.js') }}"></script>
-    <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tree.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/menu-tree.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/tree.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('icons/css/all.min.css') }}">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    
+
     <link href="{{$datos["urlFont"]}}" rel="stylesheet">
     @include('public.personal-arbol')
 
@@ -16,23 +20,21 @@
 
 </head>
 
-<body>
+<body class="bg-image">
+        <div class="bg-texture">
+
     @include('public.components.menu')
 
-
-    <div class="img-top">
+    {{-- <div class="img-top">
         @if ($datos["media"][0]->src!="")
         <img class="imagen" src="{{URL::asset('/media/pages/'.$datos["media"][0]->src)}}" alt="" />
         @else
         <img class="imagen" style="background-color:#dbdbdb;" alt="" />
         @endif
-    </div>
-
-    <div class="bg-image">
-        <div class="bg-texture">
+    </div> --}}
             <div class="text-center">
-                <h5 class="display-4 principal">Simulación de cruza</h5>
-                <h4 class="mt-5 padres">Padres 2da. Generación</h4>
+                <h4 class="display-4 principal pt-5">Simulación de cruza</h4>
+                <h4 class="padres">Padres 2da. Generación</h4>
             </div>
 
             <div class="container-fluid mb-5">

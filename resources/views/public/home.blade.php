@@ -5,12 +5,6 @@
 @push('styles')
 <link href="{{$datos["urlFont"]}}" rel="stylesheet">
 
-<style>
-#header{
-    margin-top: 0px !important;
-}
-
-</style>
 @endpush
 @include('public.personal-home')
 
@@ -53,5 +47,11 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+</div>
+</div>
+
+<div class="d-sm-none text-center">
+<h2>COLOR FUSSION KENNEL CLUB</h2>
+
 </div>
 @endsection

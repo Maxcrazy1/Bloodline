@@ -1,3 +1,11 @@
+html {
+    min-height: 100%;
+    position: relative;
+  }
+  body {
+    margin: 0;
+    margin-bottom: 40px;
+  }
 
 .imagen {
     width: 100%;
@@ -19,6 +27,14 @@
     border: none;
 }
 
+.pt-5 {
+    padding-top: 30px;
+}
+
+.principal {
+    margin-top: 21px;
+}
+
 .col2>.card2>a>.card-img {
     width: 320px !important;
     height: 215px !important;
@@ -31,8 +47,8 @@
 }
 
 .col4>.card2>.size>.card-img2 {
-    width: 262px !important;
-    height: 192px !important;
+    width: 262px;
+    height: 192px;
     object-fit: cover;
     border-radius: 10px;
     border-style: solid;
@@ -41,18 +57,13 @@
 
 }
 
-.col4>.card-der {
-    margin-left: 15px;
+.col8 {
+    width: 25%;
 }
-
-.col4>.card-izq {
-    margin-right: 15px;
-}
-
 
 .col8>.card2>.size>.card-img2 {
-    width: 145px !important;
-    height: 112px !important;
+    width: 145px;
+    height: 112px;
     object-fit: cover;
     border-radius: 10px;
     border-style: solid;
@@ -60,13 +71,10 @@
     border-width: 1px;
 }
 
-.mini-card{
-    width: 4rem;
-}
 
 .col16>.mini-card>.size>.card-img2 {
-    width: 68px !important;
-    height: 60px !important;
+    width: 100%;
+    height: 60px;
     object-fit: cover;
     border-style: solid;
     border-color: black;
@@ -98,7 +106,10 @@
 }
 
 .container-fluid {
-    width: 97% !important;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
 }
 
 .col2 {
@@ -121,12 +132,18 @@
 
 }
 
-.b-abuelos-m{
+.b-abuelos-m {
     width: 50% !important;
+    padding-left: 5px;
+    padding-right: 5px;
 }
-.b-abuelos-p{
+
+.b-abuelos-p {
     width: 50% !important;
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
 .b-abuelos-p>.col8 {
     float: left;
     padding: 2px;
@@ -135,6 +152,8 @@
     vertical-align: middle;
 
 }
+
+
 .b-abuelos-m>.col8 {
     float: left;
     padding: 2px;
@@ -143,24 +162,33 @@
     vertical-align: middle;
 
 }
-.t-paternos{
+
+.t-paternos {
     width: 50%;
+    padding-right: 7px;
+    padding-left: 7px;
 }
- .t-paternos .col16{
+
+.t-paternos .col16 {
     float: left;
-    width: 74px;
+    width: 12.5%;
     padding: 10px;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 
 }
-.t-maternos{
+
+.t-maternos {
     width: 50%;
+    padding-right: 7px;
+    padding-left: 7px;
 }
- .t-maternos .col16{
+
+.t-maternos .col16 {
     float: left;
-    width: 75px;
+    width: 12.5%;
+
     padding: 10px;
     display: table-cell;
     text-align: center;
@@ -176,17 +204,42 @@
 
 }
 
-.col4>.car2{
-    width: 14rem; 
+.col4>.car2 {
+    width: 14rem;
 }
-.col8>.car2{
+
+.col8>.car2 {
     width: 8rem;
 }
-.card{
+
+.card {
     background-color: transparent !important;
 }
 
+footer {
+    background-color: #343A40;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    color: rgb(255, 255, 255);
+    padding-bottom: 45px;
+    padding-top: 25px;
+  }
+  .t-paternos {
+    margin-bottom: 60px;
+  }
+
+
 @media all and (max-width: 1100px) {
+    .t-paternos {
+        margin-bottom: 0px;
+      }
+
+    .container-fluid {
+        height:100vh;
+    }
+
     .card2 {
         width: 18rem !important;
     }
@@ -196,21 +249,25 @@
         height: 217px;
     }
 
-    .col8>.card2>.card-img2 {
-        width: 105px !important;
-        height: 85px !important;
-    }
-
     .col4>.card2>.card-img2 {
         width: 198px !important;
         height: 155px !important;
 
     }
 
-  .col16>.mini-card>.size.card-img2 {
-        width: 54px !important;
-        height: 45px !important;
+    .col16>.mini-card>.size>.card-img2 {
+        width: 53px !important;
+        height: 47px !important;
+    }
 
+    .col4>.card2>.size>.card-img2 {
+        width: 203px;
+        height: 162px;
+    }
+
+    .col8>.card2>.size>.card-img2 {
+        width: 104px;
+        height: 93px;
     }
 
     .col4>.card2 {
@@ -225,5 +282,3 @@
         width: 0rem !important;
     }
 }
-
-
